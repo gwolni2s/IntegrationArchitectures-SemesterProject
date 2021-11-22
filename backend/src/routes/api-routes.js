@@ -14,4 +14,10 @@ router.get('/login', authApi.isLoggedIn); //the function, which handles requests
 const userApi = require('../apis/user-api');
 router.get('/user', checkAuthorization(), userApi.getSelf);
 
+/**
+ * Additional code für exercise 3.2
+ */
+
+
+
 module.exports = router;

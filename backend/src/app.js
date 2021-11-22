@@ -32,6 +32,12 @@ app.use(session({
         secure: false
     }
 }));
+// Import Routes
+const salesmanRouter = require('./routes/Salesman-routes');
+app.use('/salesman', salesmanRouter);
+
+const evaluationRecordRouter = require('./routes/EvaluationRecords-routes');
+app.use('/evaluationRecords', evaluationRecordRouter);
 
 const apiRouter = require('./routes/api-routes'); //get api-router from routes/api
 app.use('/api', apiRouter); //mount api-router at path "/api"
@@ -65,3 +71,5 @@ async function initDb(db){
         console.log('created admin user with password: '+adminPassword);
     }
 }
+
+
