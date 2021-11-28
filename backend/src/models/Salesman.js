@@ -1,24 +1,12 @@
-const mongoose = require('mongoose');
-
-const salesmanSchema = new mongoose.Schema({
-    sid: {
-        type: String,
-        required: true
-    },
-    firstname: {
-        type: String,
-        required: true
-    },
-    lastname: {
-        type: String,
-        required: true
+class Salesman {
+    constructor(sid, firstname, lastname) {
+        this.sid = sid;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
-});
+}
 
-const Salesman = mongoose.model('Salesman', salesmanSchema);
 module.exports = Salesman;
-
-
 
 
 
