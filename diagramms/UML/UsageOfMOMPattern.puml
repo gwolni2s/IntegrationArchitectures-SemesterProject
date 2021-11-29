@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+actor Salesman
+
+package frontend {
+     [Angular]
+}
+package backend {
+     [Pattern message translator]
+     [API]
+}
+database mongoDB {
+
+}
+Salesman -> [Angular] : read his records
+[Angular] -> [API] : request
+[API] <-> [mongoDB]: request and response
+[API] <-> [Pattern message translator] : data is translated and replied
+[API] -> [Angular] : reply
+[Angular] --> Salesman : data is visualized
+@enduml
