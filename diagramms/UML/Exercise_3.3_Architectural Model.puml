@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+
+package Models {
+    [Credentials] - [Models]
+    [EvaluationRecords] - [Models]
+    [Salesman] - [Models]
+    [User] - [Models]
+}
+package Routes {
+    [Api-Route] - [Routes]
+}
+package APIs{
+    [Auth-Api] - [APIs]
+    [User-Api] - [APIs]
+    [Salesman-Api] - [APIs]
+    [EvaluationRecords-Api] - [APIs]
+}
+
+package service {
+
+}
+
+package middleware {
+    [Auth-Middleware] - [Middlewares]
+}
+
+database mongoDB {
+    [SalesmanCollection] - [mongoDB]
+    [EvaluationRecordCollection] - [mongoDB]
+}
+package App {
+
+}
+Models - App
+Routes -- App
+mongoDB - App
+Middlewares -- Routes
+APIs -- App
+
+
+@enduml

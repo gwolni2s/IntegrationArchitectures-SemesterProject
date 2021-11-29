@@ -1,0 +1,42 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+
+actor CEO
+actor Assistant
+actor Salesman
+actor HR
+
+usecase meeting
+
+usecase readSalesman
+usecase createSalesman
+usecase deleteSalesman
+usecase updateSalesman
+
+usecase readEvaluationRecord
+usecase createEvaluationRecord
+usecase deleteEvaluationRecord
+usecase updateEvaluationRecord
+
+usecase login
+
+Salesman --> readSalesman : reads only his Salesman data
+Salesman --> readEvaluationRecord : reads only his createEvaluationRecord
+Assistant --> readEvaluationRecord
+Assistant --> readSalesman
+Assistant --> createEvaluationRecord
+Assistant --> createSalesman
+Assistant --> updateEvaluationRecord
+Assistant --> updateSalesman
+Assistant --> deleteEvaluationRecord
+Assistant --> deleteSalesman
+Assistant -up-> login
+Salesman -> login
+
+CEO --> meeting
+Assistant -> meeting
+HR -> meeting
+
+
+@enduml
