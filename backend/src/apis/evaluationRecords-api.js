@@ -4,20 +4,13 @@ const {ObjectId} = require("mongodb");
 exports.getEvaluationRecordsById = async (req, res) => {
     const db = req.app.get("db");
     const id = req.params["id"];
-    const evaluationRecordCollection = db.collection('evaluationRecords');
-    const evaluationRecord = await evaluationRecordCollection.findOne({"sid": id});
+    const evaluationRecord = await db.collection('evaluationRecords').findOne({"sid": id});
     res.send(evaluationRecord);
-    console.log(evaluationRecord);
 }
 
 exports.getEvaluationRecords = async (req, res) => {
     const db = req.app.get("db");
-    const evaluationRecords = [];
-    const evaluationRecord = await db.collection("evaluationRecord").find();
-    await evaluationRecord.forEach((record, index) => {
-        evaluationRecords[index] = record;
-        console.log(evaluationRecords[index]);
-    });
+    const evaluationRecords = await db.collection("evaluationRecords").find().toArray();
     res.send(evaluationRecords);
 }
 
@@ -31,7 +24,8 @@ exports.createEvaluationRecords = async (req, res) => {
                                                     data["attitudeTowardsClient"], data["communicationSkills"],
                                                     data["integrityToCompany"], data["bonusA"], data["bonusB"], data["remark"]);
 
-    res.send(db.collection("evaluationRecords").insertOne(evaluationRecords));
+    db.collection("evaluationRecords").insertOne(evaluationRecords);
+    res.send(evaluationRecords);
     console.log("EvaluationRecord with sid: " + evaluationRecords.sid + " inserted.");
 }
 
@@ -46,14 +40,21 @@ exports.updateEvaluationRecords = async (req, res) => {
             attitudeTowardsClient: data.attitudeTowardsClient, communicationSkills: data.communicationSkills,
             integrityToCompany: data.integrityToCompany, bonusA: data.bonusA, bonusB: data.bonusB, remark: data.remark}};
 
-    res.send(db.collection('evaluationRecords').updateOne({"sid": id}, evaluationRecord));
+    db.collection('evaluationRecords').updateOne({"sid": id}, evaluationRecord);
+    res.send(evaluationRecord);
+    console.log("EvaluationRecord with sid: " + id + " updated.");
 }
 
 exports.deleteEvaluationRecords = async (req, res) => {
     const db = req.app.get("db");
     const id = req.params["id"];
+    const evaluationRecord = await db.collection('evaluationRecords').findOne({"sid": id});
 
-    res.send(db.collection('evaluationRecords').deleteOne({"sid": id}));
+    db.collection('evaluationRecords').deleteOne({"sid": id});
+    res.send(evaluationRecord);
+    console.log("EvaluationRecord with sid: " + id + " deleted.");
 }
+
+
 
 
