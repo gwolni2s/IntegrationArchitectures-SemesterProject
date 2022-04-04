@@ -15,7 +15,7 @@ const userApi = require('../apis/user-api');
 router.get('/user', checkAuthorization(), userApi.getSelf);
 
 /**
- * Additional code für exercise 3.2
+ * Additional code for exercise 3.2
  */
 const salesmanApi = require("../apis/salesman-api");
 router.get('/salesman/:id', salesmanApi.getSalesmanById);
@@ -24,11 +24,11 @@ router.post('/salesman/', salesmanApi.createSalesman);
 router.put('/salesman/:id', salesmanApi.updateSalesman);
 router.delete('/salesman/:id', salesmanApi.deleteSalesman);
 
-const evaluationRecordsApi = require("../apis/evaluationRecords-api");
-router.get('/evaluationRecords/:id', evaluationRecordsApi.getEvaluationRecordsById);
-router.get('/evaluationRecords', evaluationRecordsApi.getEvaluationRecords);
-router.post('/evaluationRecords', evaluationRecordsApi.createEvaluationRecords);
-router.put('/evaluationRecords/:id', evaluationRecordsApi.updateEvaluationRecords);
-router.delete('/evaluationRecords/:id', evaluationRecordsApi.deleteEvaluationRecords);
+const bonusComputationSheetApi = require("../apis/bonusComputationSheet-api");
+router.get('/bonusComputationSheet/:id', bonusComputationSheetApi.getBonusComputationSheetById);
+router.get('/bonusComputationSheet', bonusComputationSheetApi.getBonusComputationSheet);
+router.post('/bonusComputationSheet', bonusComputationSheetApi.createBonusComputationSheet);
+router.put('/bonusComputationSheet/:id', bonusComputationSheetApi.updateBonusComputationSheet);
+router.delete('/bonusComputationSheet/:id', bonusComputationSheetApi.deleteBonusComputationSheet);
 
 module.exports = router;
