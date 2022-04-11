@@ -25,23 +25,23 @@ class socialPerformanceEvaluation {
         this._integrityToCompany = integrityToCompany;
     }
 
-    get maxBonus() {
+    getMaxBonus() {
         return this._maxBonus;
     }
 
-    set maxBonus(value) {
+    setMaxBonus(value) {
         this._maxBonus = value;
     }
 
-    get targetValue() {
+    getTargetValue() {
         return this._targetValue;
     }
 
-    set targetValue(value) {
+    setTargetValue(value) {
         this._targetValue = value;
     }
 
-    get bonus() {
+    getBonus() {
         return this._bonus;
     }
 
@@ -51,55 +51,55 @@ class socialPerformanceEvaluation {
      * social performance values
      * @param value
      */
-    set bonus(value) {
+    setBonus(value) {
         this._bonus = value;
     }
 
-    get leadershipCompetence() {
+    getLeadershipCompetence() {
         return this._leadershipCompetence;
     }
 
-    set leadershipCompetence(value) {
+    setLeadershipCompetence(value) {
         this._leadershipCompetence = value;
     }
 
-    get opennessToEmployee() {
+    getOpennessToEmployee() {
         return this._opennessToEmployee;
     }
 
-    set opennessToEmployee(value) {
+    setOpennessToEmployee(value) {
         this._opennessToEmployee = value;
     }
 
-    get socialBehaviourToEmployee() {
+    getSocialBehaviourToEmployee() {
         return this._socialBehaviourToEmployee;
     }
 
-    set socialBehaviourToEmployee(value) {
+    setSocialBehaviourToEmployee(value) {
         this._socialBehaviourToEmployee = value;
     }
 
-    get attitudeTowardsClient() {
+    getAttitudeTowardsClient() {
         return this._attitudeTowardsClient;
     }
 
-    set attitudeTowardsClient(value) {
+    setAttitudeTowardsClient(value) {
         this._attitudeTowardsClient = value;
     }
 
-    get communicationSkills() {
+    getCommunicationSkills() {
         return this._communicationSkills;
     }
 
-    set communicationSkills(value) {
+    setCommunicationSkills(value) {
         this._communicationSkills = value;
     }
 
-    get integrityToCompany() {
+    getIntegrityToCompany() {
         return this._integrityToCompany;
     }
 
-    set integrityToCompany(value) {
+    setIntegrityToCompany(value) {
         this._integrityToCompany = value;
     }
 }

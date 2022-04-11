@@ -12,39 +12,39 @@ class Salesman {
         this._department = department;
     }
 
-    get name() {
-        return this._firstname + " " + this._lastname;
+    getName() {
+        return this.getFirstname() + " " + this.getLastname();
     }
 
-    get employeeID() {
+    getEmployeeID() {
         return this._employeeID;
     }
 
-    set employeeID(value) {
+    setEmployeeID(value) {
         this._employeeID = value;
     }
 
-    get firstname() {
+    getFirstname() {
         return this._firstname;
     }
 
-    set firstname(value) {
+    setFirstname(value) {
         this._firstname = value;
     }
 
-    get lastname() {
+    getLastname() {
         return this._lastname;
     }
 
-    set lastname(value) {
+    setLastname(value) {
         this._lastname = value;
     }
 
-    get department() {
+    getDepartment() {
         return this._department;
     }
 
-    set department(value) {
+    setDepartment(value) {
         this._department = value;
     }
 }

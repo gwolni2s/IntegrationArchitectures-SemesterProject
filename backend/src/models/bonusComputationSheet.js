@@ -23,31 +23,31 @@ class bonusComputationSheet {
         this._remark = remark;
     }
 
-    get signatureCEO() {
+    getSignatureCEO() {
         return this._signatureCEO;
     }
 
-    set signatureCEO(value) {
+    setSignatureCEO(value) {
         this._signatureCEO = value;
     }
 
-    get signatureHR() {
+    getSignatureHR() {
         return this._signatureHR;
     }
 
-    set signatureHR(value) {
+    setSignatureHR(value) {
         this._signatureHR = value;
     }
 
-    get remark() {
+    getRemark() {
         return this._remark;
     }
 
-    set remark(value) {
+    setRemark(value) {
         this._remark = value;
     }
 
-    get bonus() {
+    getBonus() {
         return this._bonus;
     }
 
@@ -57,39 +57,39 @@ class bonusComputationSheet {
      * and socialPerformanceEvaluation
      * @param value
      */
-    set bonus(value) {
+    setBonus(value) {
         this._bonus = value;
     }
 
-    get employeeID() {
+    getEmployeeID() {
         return this._employeeID;
     }
 
-    set employeeID(value) {
+    setEmployeeID(value) {
         this._employeeID = value;
     }
 
-    get yearOfPerformance() {
+    getYearOfPerformance() {
         return this._yearOfPerformance;
     }
 
-    set yearOfPerformance(value) {
+    setYearOfPerformance(value) {
         this._yearOfPerformance = value;
     }
 
-    get socialPerformanceEvaluation() {
+    getSocialPerformanceEvaluation() {
         return this._socialPerformanceEvaluation;
     }
 
-    set socialPerformanceEvaluation(value) {
+    setSocialPerformanceEvaluation(value) {
         this._socialPerformanceEvaluation = value;
     }
 
-    get ordersEvaluation() {
+    getOrdersEvaluation() {
         return this._ordersEvaluation;
     }
 
-    set ordersEvaluation(value) {
+    setOrdersEvaluation(value) {
         this._ordersEvaluation = value;
     }
 }

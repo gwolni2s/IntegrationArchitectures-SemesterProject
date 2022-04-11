@@ -21,47 +21,47 @@ class ordersEvaluation {
     }
 
 
-    get maxBonus() {
+    getMaxBonus() {
         return this._maxBonus;
     }
 
-    set maxBonus(value) {
+    setMaxBonus(value) {
         this._maxBonus = value;
     }
 
-    get nameOfProduct() {
+    getNameOfProduct() {
         return this._nameOfProduct;
     }
 
-    set nameOfProduct(value) {
+    setNameOfProduct(value) {
         this._nameOfProduct = value;
     }
 
-    get client() {
+    getClient() {
         return this._client;
     }
 
-    set client(value) {
+    setClient(value) {
         this._client = value;
     }
 
-    get clientRanking() {
+    getClientRanking() {
         return this._clientRanking;
     }
 
-    set clientRanking(value) {
+    setClientRanking(value) {
         this._clientRanking = value;
     }
 
-    get items() {
+    getItems() {
         return this._items;
     }
 
-    set items(value) {
+    setItems(value) {
         this._items = value;
     }
 
-    get bonus() {
+    getBonus() {
         return this._bonus;
     }
 
@@ -71,7 +71,7 @@ class ordersEvaluation {
      * social performance values
      * @param value
      */
-    set bonus(value) {
+    setBonus(value) {
         this._bonus = value;
     }
 }
