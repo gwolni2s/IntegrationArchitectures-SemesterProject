@@ -3,36 +3,26 @@ class bonusComputationSheet {
     _employeeID;
     _yearOfPerformance;
     _socialPerformanceEvaluation;
-
-    /**
-     * ToDo:
-     * inserting multiple order Evaluations has to be handled correctly
-     * @private
-     */
     _ordersEvaluation;
 
-    _signatureCEO = false;
-    _signatureHR = false;
+    _signatureCEO;
+    _signatureHR;
 
-    _remark = "";
-    _approved = false;
+    _remark;
     _bonus;
 
 
     constructor(employeeID, yearOfPerformance, socialPerformanceEvaluation,
-                ordersEvaluation) {
+                ordersEvaluation, signatureCEO, signatureHR, remark) {
         this._employeeID = employeeID;
         this._yearOfPerformance = yearOfPerformance;
         this._socialPerformanceEvaluation = socialPerformanceEvaluation;
         this._ordersEvaluation = ordersEvaluation;
+        this._signatureCEO = signatureCEO;
+        this._signatureHR = signatureHR;
+        this._remark = remark;
     }
 
-
-    /**
-     * ToDo:
-     * signatures from ceo and hr have to be passed and set
-     * @returns {boolean}
-     */
     get signatureCEO() {
         return this._signatureCEO;
     }
@@ -49,25 +39,12 @@ class bonusComputationSheet {
         this._signatureHR = value;
     }
 
-    /**
-     * ToDo:
-     * remark has to be added separately
-     * @returns {string}
-     */
     get remark() {
         return this._remark;
     }
 
     set remark(value) {
         this._remark = value;
-    }
-
-    get approved() {
-        return this._approved;
-    }
-
-    set approved(value) {
-        this._approved = value;
     }
 
     get bonus() {

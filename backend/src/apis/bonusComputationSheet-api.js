@@ -21,7 +21,8 @@ exports.createBonusComputationSheet = async (req, res) => {
     const data = req.body;
     const bonusComputationSheet = new BonusComputationSheet(data['_employeeID'], data['_yearOfPerformance'],
                                                             data['_socialPerformanceEvaluation'],
-                                                            data['_ordersEvaluation']);
+                                                            data['_ordersEvaluation'], data['_signatureCEO'],
+                                                            data['_signatureHR'], data['_remark']);
 
     db.collection("bonusComputationSheet").insertOne(bonusComputationSheet);
     res.send(bonusComputationSheet);
@@ -37,7 +38,8 @@ exports.updateBonusComputationSheet = async (req, res) => {
     const bonusComputationSheet = {$set: {
             _employeeID: data._employeeID, _yearOfPerformance: data._yearOfPerformance,
             _socialPerformanceEvaluation: data._socialPerformanceEvaluation,
-            _ordersEvaluation: data._ordersEvaluation
+            _ordersEvaluation: data._ordersEvaluation, _signatureCEO: data._signatureCEO,
+            _signatureHR: data._signatureHR, _remark: data._remark
         }};
 
     db.collection('bonusComputationSheet').updateOne({"_employeeID": id}, bonusComputationSheet);
