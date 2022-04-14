@@ -1,9 +1,13 @@
+const SocialPerformanceEvaluation = require('../models/socialPerformanceEvaluation');
+const OrderEvaluation = require('../models/ordersEvaluation');
+
 class bonusComputationSheet {
+
 
     _employeeID;
     _yearOfPerformance;
     _socialPerformanceEvaluation;
-    _ordersEvaluation;
+    _ordersEvaluationArray = [];
 
     _signatureCEO;
     _signatureHR;
@@ -16,11 +20,33 @@ class bonusComputationSheet {
                 ordersEvaluation, signatureCEO, signatureHR, remark) {
         this._employeeID = employeeID;
         this._yearOfPerformance = yearOfPerformance;
-        this._socialPerformanceEvaluation = socialPerformanceEvaluation;
-        this._ordersEvaluation = ordersEvaluation;
+
+
+        this._socialPerformanceEvaluation =
+            new SocialPerformanceEvaluation(
+                socialPerformanceEvaluation._leadershipCompetence,
+                socialPerformanceEvaluation._opennessToEmployee,
+                socialPerformanceEvaluation._socialBehaviourToEmployee,
+                socialPerformanceEvaluation._attitudeTowardsClient,
+                socialPerformanceEvaluation._communicationSkills,
+                socialPerformanceEvaluation._integrityToCompany
+            );
+
+
+        for(let i = 0; i < ordersEvaluation.length; i++) {
+            this._ordersEvaluationArray[i] = new OrderEvaluation(
+                ordersEvaluation[i]._nameOfProduct,
+                ordersEvaluation[i]._client,
+                ordersEvaluation[i]._clientRanking,
+                ordersEvaluation[i]._items
+            );
+        }
+
+
         this._signatureCEO = signatureCEO;
         this._signatureHR = signatureHR;
         this._remark = remark;
+        this._bonus = this.calculateBonusBonusComputationSheet();
     }
 
     getSignatureCEO() {
@@ -51,12 +77,6 @@ class bonusComputationSheet {
         return this._bonus;
     }
 
-    /**
-     * ToDo:
-     * total bonus will be calculated based on ordersEvaluation
-     * and socialPerformanceEvaluation
-     * @param value
-     */
     setBonus(value) {
         this._bonus = value;
     }
@@ -85,13 +105,22 @@ class bonusComputationSheet {
         this._socialPerformanceEvaluation = value;
     }
 
-    getOrdersEvaluation() {
-        return this._ordersEvaluation;
+    getOrdersEvaluationArray() {
+        return this._ordersEvaluationArray;
     }
 
-    setOrdersEvaluation(value) {
-        this._ordersEvaluation = value;
+    setOrdersEvaluationArray(value) {
+        this._ordersEvaluationArray = value;
+    }
+    calculateBonusBonusComputationSheet() {
+        let sum = 0.0;
+        for(let i = 0; i < this.getOrdersEvaluationArray().length; i++) {
+            sum += this.getOrdersEvaluationArray()[i].getBonus();
+        }
+        return sum + this.getSocialPerformanceEvaluation().getBonus();
     }
 }
 
 module.exports = bonusComputationSheet;
+
+

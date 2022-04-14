@@ -26,7 +26,7 @@ exports.createBonusComputationSheet = async (req, res) => {
 
     db.collection("bonusComputationSheet").insertOne(bonusComputationSheet);
     res.send(bonusComputationSheet);
-    console.log("bonusComputationSheet with employeeID: " + bonusComputationSheet.employeeID + " inserted.");
+    console.log("bonusComputationSheet with employeeID: " + bonusComputationSheet._employeeID + " inserted.");
     console.log(bonusComputationSheet);
 }
 

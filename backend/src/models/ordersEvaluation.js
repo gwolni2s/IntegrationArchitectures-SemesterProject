@@ -1,14 +1,10 @@
 class ordersEvaluation {
 
-    _maxBonus; //maximal possible Bonus, 100%
     _nameOfProduct;
     _client;
-
-    /**
-     * on a scale from 1 to 5
-     * bad, satisfying, good, very good, excellent
-     */
     _clientRanking;
+    _productValue = 100; //Assuming there is only one product sold for 1000 dollars
+    _commission = 0.3; //commission is set to 30 percent of every sold item
     _items;
     _bonus;
 
@@ -18,8 +14,33 @@ class ordersEvaluation {
         this._client = client;
         this._clientRanking = clientRanking;
         this._items = items;
+        this._bonus = this.getCalculateBonusOrderEvaluation();
     }
 
+
+    getProductValue() {
+        return this._productValue;
+    }
+
+    setProductValue(value) {
+        this._productValue = value;
+    }
+
+    getCommission() {
+        return this._commission;
+    }
+
+    setCommission(value) {
+        this._commission = value;
+    }
+
+    getBonus() {
+        return this._bonus;
+    }
+
+    setBonus(value) {
+        this._bonus = value;
+    }
 
     getMaxBonus() {
         return this._maxBonus;
@@ -61,18 +82,15 @@ class ordersEvaluation {
         this._items = value;
     }
 
-    getBonus() {
-        return this._bonus;
-    }
-
     /**
-     * ToDo:
-     * bonus will be calculated by an algorithm based on the
-     * social performance values
-     * @param value
+     * The bonus for one order is calculated by
+     * commission * items * the value of the product
+     *
+     * Example:
+     * 0.3 * 20 * 1000 = 6000
      */
-    setBonus(value) {
-        this._bonus = value;
+    getCalculateBonusOrderEvaluation() {
+        return this.getCommission() * parseInt(this.getItems()) * this.getProductValue();
     }
 }
 
