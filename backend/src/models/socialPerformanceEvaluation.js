@@ -1,6 +1,6 @@
 class socialPerformanceEvaluation {
 
-    _maxBonus = 500; //default: 500 dollars, maximal possible Bonus, 100%
+    _maxBonus = 100; //default: 100 dollars, maximal possible Bonus for each criteria
     /**
         on a scale from 1 to 5
         1 equals 20% and 5 equals 100%
@@ -14,6 +14,13 @@ class socialPerformanceEvaluation {
     _communicationSkills;
     _integrityToCompany;
 
+    _leadershipCompetenceBonus;
+    _opennessToEmployeeBonus;
+    _socialBehaviourToEmployeeBonus;
+    _attitudeTowardsClientBonus;
+    _communicationSkillsBonus;
+    _integrityToCompanyBonus;
+
     _bonus;
 
     constructor(leadershipCompetence, opennessToEmployee,
@@ -26,6 +33,55 @@ class socialPerformanceEvaluation {
         this._communicationSkills = communicationSkills;
         this._integrityToCompany = integrityToCompany;
         this._bonus = this.calculateBonusSocialPerformanceEvaluation();
+    }
+
+
+    getLeadershipCompetenceBonus() {
+        return this._leadershipCompetenceBonus;
+    }
+
+    setLeadershipCompetenceBonus(value) {
+        this._leadershipCompetenceBonus = value;
+    }
+
+    getSocialBehaviourToEmployeeBonus() {
+        return this._socialBehaviourToEmployeeBonus;
+    }
+
+    setSocialBehaviourToEmployeeBonus(value) {
+        this._socialBehaviourToEmployeeBonus = value;
+    }
+
+    getOpennessToEmployeeBonus() {
+        return this._opennessToEmployeeBonus;
+    }
+
+    setOpennessToEmployeeBonus(value) {
+        this._opennessToEmployeeBonus = value;
+    }
+
+    getIntegrityToCompanyBonus() {
+        return this._integrityToCompanyBonus;
+    }
+
+    setIntegrityToCompanyBonus(value) {
+        this._integrityToCompanyBonus = value;
+    }
+
+    getCommunicationSkillsBonus() {
+        return this._communicationSkillsBonus;
+    }
+
+    setCommunicationSkillsBonus(value) {
+        this._communicationSkillsBonus = value;
+    }
+
+    getAttitudeTowardsClientBonus() {
+        return this._attitudeTowardsClientBonus;
+    }
+
+    setAttitudeTowardsClientBonus(value) {
+        this._attitudeTowardsClientBonus = value;
     }
 
     getMaxBonus() {
@@ -111,14 +167,25 @@ class socialPerformanceEvaluation {
      * 3) 500 (maxBonus) * 0,7 = 350 (return)
      */
     calculateBonusSocialPerformanceEvaluation() {
-        return this._maxBonus * (((
-                parseInt(this.getSocialBehaviourToEmployee()) +
-                parseInt(this.getCommunicationSkills()) +
-                parseInt(this.getAttitudeTowardsClient()) +
-                parseInt(this.getLeadershipCompetence()) +
-                parseInt(this.getIntegrityToCompany()) +
-                parseInt(this.getOpennessToEmployee())
-        ) / 6) / this.getTargetValue());
+        this._attitudeTowardsClientBonus =
+            this.getMaxBonus() * (parseInt(this.getAttitudeTowardsClient())  / this.getTargetValue());
+        this._socialBehaviourToEmployeeBonus =
+            this.getMaxBonus() * (parseInt(this.getSocialBehaviourToEmployee()) / this.getTargetValue());
+        this._leadershipCompetenceBonus =
+            this.getMaxBonus() * (parseInt(this.getLeadershipCompetence()) / this.getTargetValue());
+        this._communicationSkillsBonus =
+            this.getMaxBonus() * (parseInt(this.getCommunicationSkills()) / this.getTargetValue());
+        this._opennessToEmployeeBonus =
+            this.getMaxBonus() * (parseInt(this.getOpennessToEmployee()) / this.getTargetValue());
+        this._integrityToCompanyBonus =
+            this.getMaxBonus() * (parseInt(this.getIntegrityToCompany()) / this.getTargetValue());
+
+        return this.getSocialBehaviourToEmployeeBonus() +
+            this.getAttitudeTowardsClientBonus() +
+            this.getOpennessToEmployeeBonus() +
+            this.getIntegrityToCompanyBonus() +
+            this.getCommunicationSkillsBonus() +
+            this.getLeadershipCompetenceBonus()
     }
 }
 
