@@ -31,4 +31,11 @@ router.post('/bonusComputationSheet', bonusComputationSheetApi.createBonusComput
 router.put('/bonusComputationSheet/:id', bonusComputationSheetApi.updateBonusComputationSheet);
 router.delete('/bonusComputationSheet/:id', bonusComputationSheetApi.deleteBonusComputationSheet);
 
+const orangeHRMapi = require("../apis/orangeHRM-api");
+router.get('/orangeHrm/accessToken', orangeHRMapi.getAccessToken);
+router.get('/orangeHrm/employees',  orangeHRMapi.getEmployees);
+router.get('/orangeHrm/employee/:id',  orangeHRMapi.getEmployee);
+router.get('/orangeHrm/bonusSalary/:id',  orangeHRMapi.getBonusSalary);
+router.post('/orangeHrm/bonusSalary/:id',  orangeHRMapi.postBonusSalary);
+
 module.exports = router;
