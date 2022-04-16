@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {getAccessToken} = require("./orangeHRM-api");
+const FormData = require('form-data');
 
 const baseUrl = 'https://sepp-hrm.inf.h-brs.de/symfony/web/index.php';
 let accessToken = null;
@@ -16,13 +16,11 @@ exports.getAccessToken = async(req, res) => {
                                     });
 
     accessToken = result.data['access_token'];
-    console.log(accessToken);
-    res.send(accessToken);
 }
 
 exports.getEmployees = async(req, res) => {
 
-    await getAccessToken();
+    await exports.getAccessToken();
 
     const result = await axios.get(`${baseUrl}/api/v1/employee/search`, {
         headers: {
@@ -35,6 +33,9 @@ exports.getEmployees = async(req, res) => {
 }
 
 exports.getEmployee = async(req, res) => {
+
+    await exports.getAccessToken();
+
     const id = req.params['id'];
     const result = await axios.get(`${baseUrl}/api/v1/employee/${id}`,
         {
@@ -48,6 +49,9 @@ exports.getEmployee = async(req, res) => {
 }
 
 exports.getBonusSalary = async(req, res) => {
+
+    await exports.getAccessToken();
+
     const id = req.params['id'];
     const result = await axios.get(`${baseUrl}/api/v1/employee/${id}/bonussalary`,
         {
@@ -61,19 +65,24 @@ exports.getBonusSalary = async(req, res) => {
 }
 
 exports.postBonusSalary = async(req, res) => {
-    console.log('post Bonus Salary function is called');
+
     const id = req.params['id'];
     const year = req.query['year'];
     const value = req.query['value'];
 
+    await exports.getAccessToken();
+
+    let formData = new FormData();
+    formData.append('year', year);
+    formData.append('value', value);
+    const formHeaders = formData.getHeaders();
+
     const result = await axios.post(`${baseUrl}/api/v1/employee/${id}/bonussalary`,
-        {
-            year: year,
-            value: value
-        },
+        formData,
         {
             headers: {
-                Authorization: `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`,
+                ...formHeaders
             }
         });
 

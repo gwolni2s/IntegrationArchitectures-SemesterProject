@@ -38,4 +38,8 @@ router.get('/orangeHrm/employee/:id',  orangeHRMapi.getEmployee);
 router.get('/orangeHrm/bonusSalary/:id',  orangeHRMapi.getBonusSalary);
 router.post('/orangeHrm/bonusSalary/:id',  orangeHRMapi.postBonusSalary);
 
+const openCRXapi = require('../apis/openCRX-api');
+router.get('/openCrx/customers', openCRXapi.getAllCustomers);
+router.get('/openCrx/salesOrders', openCRXapi.getAllSalesOrders);
+
 module.exports = router;
