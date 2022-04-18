@@ -23,7 +23,7 @@ exports.createSalesman = async (req, res) => {
 
     db.collection("salesman").insertOne(salesman);
     res.send(salesman);
-    console.log(salesman.firstname + " " +  salesman.lastname + " inserted.");
+    console.log(salesman._firstname + " " +  salesman._lastname + " inserted.");
 }
 
 exports.updateSalesman = async (req, res) => {
