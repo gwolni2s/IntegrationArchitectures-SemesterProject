@@ -42,6 +42,6 @@ router.get('/openCrx/customer/:id', openCRXapi.getCustomer);
 router.get('/openCrx/salesrep/:id', openCRXapi.getSalesRep);
 router.get('/openCrx/salesOrderPosition/:id', openCRXapi.getSalesOrderPosition);
 router.get('/openCrx/product/:id', openCRXapi.getProduct);
-router.get('/openCrx/data', openCRXapi.getCompleteSalesOrdersData);
+router.get('/openCrx/data', openCRXapi.getAllData);
 
 module.exports = router;
