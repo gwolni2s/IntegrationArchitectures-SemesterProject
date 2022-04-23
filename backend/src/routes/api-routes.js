@@ -29,7 +29,6 @@ router.put('/bonusComputationSheet/:id', bonusComputationSheetApi.updateBonusCom
 router.delete('/bonusComputationSheet/:id', bonusComputationSheetApi.deleteBonusComputationSheet);
 
 const orangeHRMapi = require("../apis/orangeHRM-api");
-router.get('/orangeHrm/accessToken', orangeHRMapi.getAccessToken);
 router.get('/orangeHrm/employees',  orangeHRMapi.getEmployees);
 router.get('/orangeHrm/employee/:id',  orangeHRMapi.getEmployee);
 router.get('/orangeHrm/bonusSalary/:id',  orangeHRMapi.getBonusSalary);
