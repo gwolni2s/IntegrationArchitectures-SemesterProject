@@ -19,7 +19,18 @@ export class MenuBarComponent implements OnInit {
   buttons = [
     {title: 'Welcome', routerLink: ''}, //the tile is the text on the button, the routerLink specifies, where it will navigate
     {title: 'Example', routerLink: 'example'},
+    {title: 'Salesmen', routerLink: 'salesmen'},
+    {title: 'BonusComputationSheets', routerLink: 'bonusComputationSheets'},
+    {title: 'SocialPerformance', routerLink: 'socialPerformance'},
+    {title: 'Sales', routerLink: 'sales'}
   ];
+
+  buttonss = [
+    {title: 'EventLogs', routerLink: 'eventLogs'},
+    {title: 'Accounts', routerLink: 'accounts'}
+  ]
+
+  button1 = {title: 'Profile', routerLink: 'profile'};
 
   /**
    * The following parameters specify objects, which will be provided by dependency injection

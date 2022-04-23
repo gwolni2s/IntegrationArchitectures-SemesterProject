@@ -17,6 +17,15 @@ import {MatIconModule} from "@angular/material/icon";
 import { MenuBarComponent } from './components/menu-bar/menu-bar.component';
 import { ExamplePageComponent } from './pages/example-page/example-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { SalesmenPageComponent } from './pages/salesmen-page/salesmen-page.component';
+import { SocialPerformancePageComponent } from './pages/social-performance-page/social-performance-page.component';
+import { SalesPageComponent } from './pages/sales-page/sales-page.component';
+import { BonusComputationSheetPageComponent } from './pages/bonus-computation-sheet-page/bonus-computation-sheet-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { EventLogsPageComponent } from './pages/event-logs-page/event-logs-page.component';
+import { AccountsPageComponent } from './pages/accounts-page/accounts-page.component';
+import {MatTableModule} from '@angular/material/table';
+import {CdkTableModule} from "@angular/cdk/table";
 
 @NgModule({
   declarations: [
@@ -26,7 +35,14 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     LandingPageComponent,
     MenuBarComponent,
     ExamplePageComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    SalesmenPageComponent,
+    SocialPerformancePageComponent,
+    SalesPageComponent,
+    BonusComputationSheetPageComponent,
+    ProfilePageComponent,
+    EventLogsPageComponent,
+    AccountsPageComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +54,9 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule,
+    CdkTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
