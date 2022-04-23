@@ -1,62 +1,28 @@
-const BonusComputationSheet = require('../models/bonusComputationSheet');
-const {ObjectId} = require("mongodb");
+const BonusComputationSheetService = require('../services/bonusComputationSheet-service');
 
 exports.getBonusComputationSheetById = async (req, res) => {
-    const db = req.app.get("db");
-    const id = req.params["id"];
-    const bonusComputationSheet = await db.collection('bonusComputationSheet').findOne({"_employeeID": id});
-    res.send(bonusComputationSheet);
-    console.log(bonusComputationSheet);
+    await BonusComputationSheetService
+        .getBonusComputationSheetByID(req, res);
 }
 
 exports.getBonusComputationSheet = async (req, res) => {
-    const db = req.app.get("db");
-    const bonusComputationSheet = await db.collection("bonusComputationSheet").find().toArray();
-    res.send(bonusComputationSheet);
-    console.log(bonusComputationSheet);
+    await BonusComputationSheetService
+        .getBonusComputationSheet(req, res);
 }
 
 exports.createBonusComputationSheet = async (req, res) => {
-    const db = req.app.get("db");
-    const data = req.body;
-    const bonusComputationSheet = new BonusComputationSheet(data['_employeeID'], data['_yearOfPerformance'],
-                                                            data['_socialPerformanceEvaluation'],
-                                                            data['_ordersEvaluation'], data['_signatureCEO'],
-                                                            data['_signatureHR'], data['_remark']);
-
-    db.collection("bonusComputationSheet").insertOne(bonusComputationSheet);
-    res.send(bonusComputationSheet);
-    console.log("bonusComputationSheet with employeeID: " + bonusComputationSheet._employeeID + " inserted.");
-    console.log(bonusComputationSheet);
+    await BonusComputationSheetService
+        .createBonusComputationSheet(req, res);
 }
 
 exports.updateBonusComputationSheet = async (req, res) => {
-    const db = req.app.get("db");
-    const id = req.params["id"];
-    const data = req.body;
-
-    const bonusComputationSheet = {$set: {
-            _employeeID: data._employeeID, _yearOfPerformance: data._yearOfPerformance,
-            _socialPerformanceEvaluation: data._socialPerformanceEvaluation,
-            _ordersEvaluation: data._ordersEvaluation, _signatureCEO: data._signatureCEO,
-            _signatureHR: data._signatureHR, _remark: data._remark
-        }};
-
-    db.collection('bonusComputationSheet').updateOne({"_employeeID": id}, bonusComputationSheet);
-    res.send(bonusComputationSheet);
-    console.log("bonusComputationSheet with employeeID: " + id + " updated.");
-    console.log(bonusComputationSheet);
+    await BonusComputationSheetService
+        .updateBonusComputationSheet(req, res);
 }
 
 exports.deleteBonusComputationSheet = async (req, res) => {
-    const db = req.app.get("db");
-    const id = req.params["id"];
-    const bonusComputationSheet = await db.collection('bonusComputationSheet').findOne({"_employeeID": id});
-
-    db.collection('bonusComputationSheet').deleteOne({"_employeeID": id});
-    res.send(bonusComputationSheet);
-    console.log("bonusComputationSheet with employeeID: " + id + " deleted.");
-    console.log(bonusComputationSheet);
+    await BonusComputationSheetService
+        .deleteBonusComputationSheet(req, res);
 }
 
 
