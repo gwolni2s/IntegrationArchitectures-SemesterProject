@@ -4,4 +4,18 @@
       <h1>Salesmen</h1>
     </mat-card-title>
   </mat-card-header>
+  <ul class="Salesmen">
+    <li *ngFor="let salesman of Salesmen">
+      <span>
+        EmployeeID: {{salesman._employeeID}}<br>
+        Firstname: {{salesman._firstname}}<br>
+        Lastname: {{salesman._lastname}}<br>
+        Department: {{salesman._department}}<br>
+        <br>
+        <button (click)="deleteSalesman(salesman._employeeID)">
+          Delete Salesman
+        </button>
+      </span>
+    </li>
+  </ul>
 </mat-card>

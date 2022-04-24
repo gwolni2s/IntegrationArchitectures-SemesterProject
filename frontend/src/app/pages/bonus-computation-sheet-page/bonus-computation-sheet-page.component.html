@@ -4,4 +4,20 @@
       <h1>Bonus Computation Sheets</h1>
     </mat-card-title>
   </mat-card-header>
+  <ul class="BonusSheets">
+    <li *ngFor="let bonusSheet of BonusSheets">
+      <span>
+        EmployeeID: {{ bonusSheet._employeeID }}<br>
+        Year Of Performance: {{ bonusSheet._yearOfPerformance }}<br>
+        Social Performance Evaluation: {{ bonusSheet._socialPerformanceEvaluation }}<br>
+        Order Evaluation: {{ bonusSheet._ordersEvaluation }}<br>
+        Signature CEO: {{ bonusSheet._signatureCEO }}<br>
+        Signature HR: {{ bonusSheet._signatureHR }}<br>
+        Remark: {{ bonusSheet._remark }}<br>
+        Bonus: {{ bonusSheet._bonus }}
+      </span>
+      <br>
+      <br>
+    </li>
+  </ul>
 </mat-card>

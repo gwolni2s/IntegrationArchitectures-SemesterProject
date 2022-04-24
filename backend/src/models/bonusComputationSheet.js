@@ -7,7 +7,7 @@ class bonusComputationSheet {
     _employeeID;
     _yearOfPerformance;
     _socialPerformanceEvaluation;
-    _ordersEvaluations = [];
+    _ordersEvaluation = [];
 
     _signatureCEO;
     _signatureHR;
@@ -34,7 +34,7 @@ class bonusComputationSheet {
 
 
         for(let i = 0; i < ordersEvaluation.length; i++) {
-            this._ordersEvaluations[i] = new OrderEvaluation(
+            this._ordersEvaluation[i] = new OrderEvaluation(
                 ordersEvaluation[i]._nameOfProduct,
                 ordersEvaluation[i]._client,
                 ordersEvaluation[i]._clientRanking,
@@ -105,17 +105,17 @@ class bonusComputationSheet {
         this._socialPerformanceEvaluation = value;
     }
 
-    getOrdersEvaluations() {
-        return this._ordersEvaluations;
+    getOrdersEvaluation() {
+        return this._ordersEvaluation;
     }
 
-    setOrdersEvaluations(value) {
-        this._ordersEvaluations = value;
+    setOrdersEvaluation(value) {
+        this._ordersEvaluation = value;
     }
     calculateBonusBonusComputationSheet() {
         let sum = 0.0;
-        for(let i = 0; i < this.getOrdersEvaluations().length; i++) {
-            sum += this.getOrdersEvaluations()[i].getBonus();
+        for(let i = 0; i < this.getOrdersEvaluation().length; i++) {
+            sum += this.getOrdersEvaluation()[i].getBonus();
         }
         return sum + this.getSocialPerformanceEvaluation().getBonus();
     }

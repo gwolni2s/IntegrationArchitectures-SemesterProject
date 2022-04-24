@@ -24,6 +24,16 @@ app.use(express.json()); //adds support for json encoded bodies
 app.use(express.urlencoded({extended: true})); //adds support url encoded bodies
 app.use(upload.array()); //adds support multipart/form-data bodies
 
+/**
+ * Access Control Allow Origin localhost:4200
+ */
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:4200"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "*");
+    next();
+});
+
 app.use(session({
     secret: crypto.randomBytes(32).toString('hex'),
     resave: false,
