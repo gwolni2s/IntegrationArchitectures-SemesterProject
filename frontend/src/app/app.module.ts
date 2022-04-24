@@ -26,6 +26,7 @@ import { EventLogsPageComponent } from './pages/event-logs-page/event-logs-page.
 import { AccountsPageComponent } from './pages/accounts-page/accounts-page.component';
 import {MatTableModule} from '@angular/material/table';
 import {CdkTableModule} from "@angular/cdk/table";
+import { OrangeComponent } from './pages/orange/orange.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {CdkTableModule} from "@angular/cdk/table";
     BonusComputationSheetPageComponent,
     ProfilePageComponent,
     EventLogsPageComponent,
-    AccountsPageComponent
+    AccountsPageComponent,
+    OrangeComponent
   ],
   imports: [
     BrowserModule,

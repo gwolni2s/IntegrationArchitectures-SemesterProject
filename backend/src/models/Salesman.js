@@ -1,15 +1,25 @@
 class Salesman {
 
     _employeeID;
+    _code;
     _firstname;
     _lastname;
     _department;
 
-    constructor(employeeID, firstname, lastname, department) {
+    constructor(employeeID, code, firstname, lastname, department) {
         this._employeeID = employeeID;
+        this._code = code;
         this._firstname = firstname;
         this._lastname = lastname;
         this._department = department;
+    }
+
+    getCode() {
+        return this._code;
+    }
+
+    setCode(code) {
+        this._code = code;
     }
 
     getName() {
