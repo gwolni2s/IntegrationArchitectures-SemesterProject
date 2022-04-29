@@ -11,7 +11,7 @@ export class SalesService {
   constructor(private http: HttpClient) { }
 
   getAllData(): Observable<Sales[]> {
-    return this.http.get<Sales[]>('http://localhost:8080/api/openCrx/data');
+    return this.http.get<Sales[]>('http://localhost:8080/api/bonusComputationSheet/');
   }
 }
 

@@ -11,7 +11,7 @@ export class BonusComputationSheetPageComponent implements OnInit {
   BonusSheets: BonusComputationSheet[] = [];
   BonusSheet: BonusComputationSheet;
   displayedColumns: string[] = [
-    'Employee ID',
+    'Code',
     'Year Of Performance',
     'Remark',
     'Bonus',

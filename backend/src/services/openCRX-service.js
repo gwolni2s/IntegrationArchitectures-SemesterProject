@@ -120,6 +120,7 @@ exports.getCompleteSalesOrdersData = async(req, res) => {
             console.log(error);
         }
     }
+    res.send(allData);
     return allData;
 }
 

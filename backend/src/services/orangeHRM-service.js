@@ -27,6 +27,7 @@ exports.getEmployees = async (req, res) => {
                     }
             }
     );
+    res.send(exports.filterAllSalesmen(result.data.data));
     return exports.filterAllSalesmen(result.data.data);
 }
 exports.getEmployee = async (req, res) => {

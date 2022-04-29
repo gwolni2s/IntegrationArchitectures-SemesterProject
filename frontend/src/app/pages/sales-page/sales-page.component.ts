@@ -11,7 +11,7 @@ export class SalesPageComponent implements OnInit {
   Sales: Sales[] = [];
   Sale: Sales;
   displayedColumns: string[] = [
-    'Employee ID',
+    'Code',
     'Year of Order',
     'Customer',
     'Product',
@@ -27,7 +27,7 @@ export class SalesPageComponent implements OnInit {
 
   getAllData(): void {
     this.salesService.getAllData()
-      .subscribe(sale => this.Sales = sale);
+      .subscribe(sales => this.Sales = sales);
   }
 }
 

@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginPageComponent} from "./pages/login-page/login-page.component";
-import {LandingPageComponent} from "./pages/landing-page/landing-page.component";
 import {AuthGuardService} from "./services/auth-guard.service";
-import {ExamplePageComponent} from "./pages/example-page/example-page.component";
 import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.component";
 import {SalesmenPageComponent} from "./pages/salesmen-page/salesmen-page.component";
 import {BonusComputationSheetPageComponent} from "./pages/bonus-computation-sheet-page/bonus-computation-sheet-page.component";
@@ -12,7 +10,6 @@ import {SalesPageComponent} from "./pages/sales-page/sales-page.component";
 import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
 import {AccountsPageComponent} from "./pages/accounts-page/accounts-page.component";
 import {EventLogsPageComponent} from "./pages/event-logs-page/event-logs-page.component";
-import {OrangeComponent} from "./pages/orange/orange.component";
 
 /*
   This array holds the relation of paths and components which angular router should resolve.
@@ -25,7 +22,7 @@ import {OrangeComponent} from "./pages/orange/orange.component";
  */
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
-  {path: 'example', component: ExamplePageComponent, canActivate: [AuthGuardService]},
+  {path: '', component: SalesmenPageComponent, canActivate: [AuthGuardService]},
   {path: 'salesmen', component: SalesmenPageComponent, canActivate: [AuthGuardService]},
   {path: 'bonusComputationSheets', component: BonusComputationSheetPageComponent, canActivate: [AuthGuardService]},
   {path: 'socialPerformance', component: SocialPerformancePageComponent, canActivate: [AuthGuardService]},
@@ -33,8 +30,6 @@ const routes: Routes = [
   {path: 'eventLogs', component: EventLogsPageComponent, canActivate: [AuthGuardService]},
   {path: 'accounts', component: AccountsPageComponent, canActivate: [AuthGuardService]},
   {path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuardService]},
-  {path: 'orange', component: OrangeComponent, canActivate: [AuthGuardService]},
-  {path: '', component: LandingPageComponent, canActivate: [AuthGuardService]},
   {path:'**', component: NotFoundPageComponent}, //these entries are matched from top to bottom => not found should be the last entry
 ];
 

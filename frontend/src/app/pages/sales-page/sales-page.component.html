@@ -6,33 +6,33 @@
   </mat-card-header>
   <table mat-table [dataSource]="Sales" class="mat-elevation-z8">
 
-    <!--Sales Rep ID Column-->
-    <ng-container matColumnDef="Employee ID">
-      <th mat-header-cell *matHeaderCellDef>Employee ID</th>
-      <td mat-cell *matCellDef="let element">{{ element['_salesRep']['_id']}}</td>
+    <!--Employee ID Column-->
+    <ng-container matColumnDef="Code">
+      <th mat-header-cell *matHeaderCellDef>Code</th>
+      <td mat-cell *matCellDef="let element">{{ element['_code'] }}</td>
     </ng-container>
 
-    <!--Created At Column-->
+    <!--Code Column-->
     <ng-container matColumnDef="Year of Order">
       <th mat-header-cell *matHeaderCellDef>Year of Order</th>
-      <td mat-cell *matCellDef="let element">{{ element['_salesOrder']['_createdAtSalesOrder']}}</td>
+      <td mat-cell *matCellDef="let element">{{ element['_yearOfPerformance'] }}</td>
     </ng-container>
 
     <!--Fullname Column-->
     <ng-container matColumnDef="Customer">
       <th mat-header-cell *matHeaderCellDef>Customer</th>
-      <td mat-cell *matCellDef="let element">{{ element['_customer']['_fullname'] }}</td>
+      <td mat-cell *matCellDef="let element">{{ element['_orderEvaluation']['_client'] }}</td>
     </ng-container>
 
     <!--Product Column-->
     <ng-container matColumnDef="Product">
       <th mat-header-cell *matHeaderCellDef>Product</th>
       <td mat-cell *matCellDef="let element">
-        <div *ngIf="element['_product'][0] && element['_product'][1]">
-          {{ element['_product'][0]['_productName'] }}, {{ element['_product'][1]['_productName'] }}
+        <div *ngIf="element['_orderEvaluation']['_nameOfProduct'][0] && element['_orderEvaluation']['_nameOfProduct'][1]">
+          {{ element['_orderEvaluation']['_nameOfProduct'][0] }}, {{ element['_orderEvaluation']['_nameOfProduct'][1] }}
         </div>
-        <div *ngIf="element['_product'][0] && !element['_product'][1]">
-          {{ element['_product'][0]['_productName'] }}
+        <div *ngIf="element['_orderEvaluation']['_nameOfProduct'][0] && !element['_orderEvaluation']['_nameOfProduct'][1]">
+          {{ element['_orderEvaluation']['_nameOfProduct'][0] }}
         </div>
       </td>
     </ng-container>
@@ -41,11 +41,11 @@
     <ng-container matColumnDef="Quantity">
       <th mat-header-cell *matHeaderCellDef>Quantity</th>
       <td mat-cell *matCellDef="let element">
-        <div *ngIf="element['_position'][0] && element['_position'][1]">
-          {{ element['_position'][0]['_quantity'] | number: '1.0-0' }}, {{ element['_position'][1]['_quantity'] | number: '1.0-0'  }}
+        <div *ngIf="element['_orderEvaluation']['_items'][0] && element['_orderEvaluation']['_items'][1]">
+          {{ element['_orderEvaluation']['_items'][0] | number: '1.0-0' }}, {{ element['_orderEvaluation']['_items'][1] | number: '1.0-0'  }}
         </div>
-        <div *ngIf="element['_position'][0] && !element['_position'][1]">
-          {{ element['_position'][0]['_quantity'] | number: '1.0-0' }}
+        <div *ngIf="element['_orderEvaluation']['_items'][0] && !element['_orderEvaluation']['_items'][1]">
+          {{ element['_orderEvaluation']['_items'][0] | number: '1.0-0' }}
         </div>
       </td>
     </ng-container>
