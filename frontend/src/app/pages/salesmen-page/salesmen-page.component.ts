@@ -10,6 +10,14 @@ import { Salesman } from "../../models/Salesman";
 export class SalesmenPageComponent implements OnInit {
   Salesmen: Salesman[] = [];
   Salesman: Salesman;
+  displayedColumns: string[] = [
+    'Employee ID',
+    'Code',
+    'Firstname',
+    'Lastname',
+    'Department',
+    'Edit Salesman',
+    'Delete Salesman'];
 
   constructor(private salesmanService: SalesmanService) { }
 

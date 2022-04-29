@@ -48,3 +48,17 @@ exports.deleteSalesman = async (req, res) => {
     db.collection("salesman").deleteOne({"_employeeID": id});
     res.send(salesman);
 }
+exports.saveSalesmen = async (req, res, data) => {
+    const db = req.app.get('db');
+    await db.collection('salesman').drop();
+    for(let i in data) {
+        const salesman = new Salesman(
+            data[i]["_employeeID"],
+            data[i]["_code"],
+            data[i]["_firstname"],
+            data[i]["_lastname"],
+            data[i]["_department"]
+        );
+        await db.collection("salesman").insertOne(salesman);
+    }
+}

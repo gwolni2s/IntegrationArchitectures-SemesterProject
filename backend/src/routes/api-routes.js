@@ -44,4 +44,7 @@ router.get('/openCrx/salesOrderPosition/:id', openCRXapi.getSalesOrderPosition);
 router.get('/openCrx/product/:id', openCRXapi.getProduct);
 router.get('/openCrx/data', openCRXapi.getAllData);
 
+const databaseApi = require('../apis/database-api');
+router.get('/database/data', databaseApi.fetchData);
+
 module.exports = router;

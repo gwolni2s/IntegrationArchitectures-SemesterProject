@@ -65,3 +65,13 @@ exports.deleteBonusComputationSheet = async (req, res) => {
     res.send("Bonus Computation Sheet with ID: " + id +
         " successfully deleted.");
 }
+exports.saveAllSales = async (req, res, data) => {
+    const db = req.app.get("db");
+    await db.collection('bonusComputationSheet').drop();
+    for(let i in data) {
+        await db.collection("bonusComputationSheet")
+            .insertOne(
+                new BonusComputationSheet(data[i])
+            );
+    }
+}

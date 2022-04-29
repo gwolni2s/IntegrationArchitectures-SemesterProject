@@ -4,18 +4,80 @@
       <h1>Salesmen</h1>
     </mat-card-title>
   </mat-card-header>
-  <ul class="Salesmen">
-    <li *ngFor="let salesman of Salesmen">
-      <span>
-        EmployeeID: {{salesman._employeeID}}<br>
-        Firstname: {{salesman._firstname}}<br>
-        Lastname: {{salesman._lastname}}<br>
-        Department: {{salesman._department}}<br>
-        <br>
-        <button (click)="deleteSalesman(salesman._employeeID)">
-          Delete Salesman
-        </button>
-      </span>
-    </li>
-  </ul>
+  <table mat-table [dataSource]="Salesmen" class="mat-elevation-z8">
+
+    <!--Employee ID Column-->
+    <ng-container matColumnDef="Employee ID">
+      <th mat-header-cell *matHeaderCellDef>Employee ID</th>
+      <td mat-cell *matCellDef="let element">{{ element['_employeeID'] }}</td>
+    </ng-container>
+
+    <!--Code Column-->
+    <ng-container matColumnDef="Code">
+      <th mat-header-cell *matHeaderCellDef>Code</th>
+      <td mat-cell *matCellDef="let element">{{ element['_code'] }}</td>
+    </ng-container>
+
+    <!--Firstname Column-->
+    <ng-container matColumnDef="Firstname">
+      <th mat-header-cell *matHeaderCellDef>Firstname</th>
+      <td mat-cell *matCellDef="let element">{{ element['_firstname'] }}</td>
+    </ng-container>
+
+    <!--Lastname Column-->
+    <ng-container matColumnDef="Lastname">
+      <th mat-header-cell *matHeaderCellDef>Lastname</th>
+      <td mat-cell *matCellDef="let element">{{ element['_lastname'] }}</td>
+    </ng-container>
+
+    <!--Department Column-->
+    <ng-container matColumnDef="Department">
+      <th mat-header-cell *matHeaderCellDef>Department</th>
+      <td mat-cell *matCellDef="let element">{{ element['_department'] }}</td>
+    </ng-container>
+
+    <!--Edit Button Column-->
+    <ng-container matColumnDef="Edit Salesman">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary">Edit</button>
+      </td>
+    </ng-container>
+
+    <!--Delete Button Column-->
+    <ng-container matColumnDef="Delete Salesman">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="warn">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <br>
+
+  <form class="create-salesman-form">
+    <mat-form-field class="salesman" appearance="standard">
+      <mat-label>Employee ID</mat-label>
+      <input matInput placeholder="ID" value="">
+    </mat-form-field>
+    <mat-form-field class="salesman" appearance="standard">
+      <mat-label>Code</mat-label>
+      <input matInput placeholder="code" value="">
+    </mat-form-field>
+    <mat-form-field class="salesman" appearance="standard">
+      <mat-label>Firstname</mat-label>
+      <input matInput placeholder="Firstname" value="">
+    </mat-form-field>
+    <mat-form-field class="salesman" appearance="standard">
+      <mat-label>Lastname</mat-label>
+      <input matInput placeholder="Lastname" value="">
+    </mat-form-field>
+    <mat-form-field class="salesman" appearance="standard">
+      <mat-label>Department</mat-label>
+      <input matInput placeholder="Department" value="">
+    </mat-form-field>
+    <button mat-raised-button>Create</button>
+  </form>
 </mat-card>

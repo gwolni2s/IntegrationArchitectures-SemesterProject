@@ -1,19 +1,22 @@
 class ordersEvaluation {
 
-    _nameOfProduct;
+    _nameOfProduct = [];
     _client;
     _clientRanking;
-    _productValue = 100; //Assuming there is only one product sold for 1000 dollars
-    _commission = 0.3; //commission is set to 30 percent of every sold item
-    _items;
+    _items = [];
+    _nameSale;
+    _productDescription = [];
     _bonus;
 
 
-    constructor(nameOfProduct, client, clientRanking, items) {
+    constructor(nameOfProduct, client, clientRanking, items,
+                nameSale, productDescription) {
         this._nameOfProduct = nameOfProduct;
         this._client = client;
         this._clientRanking = clientRanking;
         this._items = items;
+        this._nameSale = nameSale;
+        this._productDescription = productDescription;
         this._bonus = this.getCalculateBonusOrderEvaluation();
     }
 
@@ -90,7 +93,15 @@ class ordersEvaluation {
      * 0.3 * 20 * 1000 = 6000
      */
     getCalculateBonusOrderEvaluation() {
-        return this.getCommission() * parseInt(this.getItems()) * this.getProductValue();
+        let commission = 0.3; // 30 % Commission
+        let productValue;
+        let bonus = 0.0;
+        for(let i in this._items) {
+            if (this._nameOfProduct[i] === "HooverGo") productValue = 1500;
+            if (this._nameOfProduct[i] === "HooverClean") productValue = 1000;
+            bonus += this._items[i] * commission * productValue;
+        }
+        return bonus;
     }
 }
 

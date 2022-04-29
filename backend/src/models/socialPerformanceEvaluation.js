@@ -5,7 +5,7 @@ class socialPerformanceEvaluation {
         on a scale from 1 to 5
         1 equals 20% and 5 equals 100%
      */
-    _targetValue = 5; //default = 5
+    _targetValue;
 
     _leadershipCompetence;
     _opennessToEmployee;
@@ -168,17 +168,23 @@ class socialPerformanceEvaluation {
      */
     calculateBonusSocialPerformanceEvaluation() {
         this._attitudeTowardsClientBonus =
-            this.getMaxBonus() * (parseInt(this.getAttitudeTowardsClient())  / this.getTargetValue());
+            this.getMaxBonus() * (parseInt(this.getAttitudeTowardsClient())
+                / this.getTargetValue());
         this._socialBehaviourToEmployeeBonus =
-            this.getMaxBonus() * (parseInt(this.getSocialBehaviourToEmployee()) / this.getTargetValue());
+            this.getMaxBonus() * (parseInt(this.getSocialBehaviourToEmployee())
+                / this.getTargetValue());
         this._leadershipCompetenceBonus =
-            this.getMaxBonus() * (parseInt(this.getLeadershipCompetence()) / this.getTargetValue());
+            this.getMaxBonus() * (parseInt(this.getLeadershipCompetence())
+                / this.getTargetValue());
         this._communicationSkillsBonus =
-            this.getMaxBonus() * (parseInt(this.getCommunicationSkills()) / this.getTargetValue());
+            this.getMaxBonus() * (parseInt(this.getCommunicationSkills())
+                / this.getTargetValue());
         this._opennessToEmployeeBonus =
-            this.getMaxBonus() * (parseInt(this.getOpennessToEmployee()) / this.getTargetValue());
+            this.getMaxBonus() * (parseInt(this.getOpennessToEmployee())
+                / this.getTargetValue());
         this._integrityToCompanyBonus =
-            this.getMaxBonus() * (parseInt(this.getIntegrityToCompany()) / this.getTargetValue());
+            this.getMaxBonus() * (parseInt(this.getIntegrityToCompany())
+                / this.getTargetValue());
 
         return this.getSocialBehaviourToEmployeeBonus() +
             this.getAttitudeTowardsClientBonus() +

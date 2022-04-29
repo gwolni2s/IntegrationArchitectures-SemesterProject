@@ -10,6 +10,14 @@ import { BonusComputationSheet } from "../../models/BonusComputationSheet";
 export class BonusComputationSheetPageComponent implements OnInit {
   BonusSheets: BonusComputationSheet[] = [];
   BonusSheet: BonusComputationSheet;
+  displayedColumns: string[] = [
+    'Employee ID',
+    'Year Of Performance',
+    'Remark',
+    'Bonus',
+    'Edit Bonus Sheet',
+    'Delete Bonus Sheet'
+  ]
 
   constructor(private bonusComputationSheetService: BonusComputationSheetService) { }
 

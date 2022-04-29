@@ -4,20 +4,76 @@
       <h1>Bonus Computation Sheets</h1>
     </mat-card-title>
   </mat-card-header>
-  <ul class="BonusSheets">
-    <li *ngFor="let bonusSheet of BonusSheets">
-      <span>
-        EmployeeID: {{ bonusSheet._employeeID }}<br>
-        Year Of Performance: {{ bonusSheet._yearOfPerformance }}<br>
-        Social Performance Evaluation: {{ bonusSheet._socialPerformanceEvaluation }}<br>
-        Order Evaluation: {{ bonusSheet._ordersEvaluation }}<br>
-        Signature CEO: {{ bonusSheet._signatureCEO }}<br>
-        Signature HR: {{ bonusSheet._signatureHR }}<br>
-        Remark: {{ bonusSheet._remark }}<br>
-        Bonus: {{ bonusSheet._bonus }}
-      </span>
-      <br>
-      <br>
-    </li>
-  </ul>
+  <table mat-table [dataSource]="BonusSheets" class="mat-elevation-z8">
+
+    <!--Employee ID Column-->
+    <ng-container matColumnDef="Employee ID">
+      <th mat-header-cell *matHeaderCellDef>Employee ID</th>
+      <td mat-cell *matCellDef="let element">{{ element['_employeeID'] }}</td>
+    </ng-container>
+
+    <!--Code Column-->
+    <ng-container matColumnDef="Year Of Performance">
+      <th mat-header-cell *matHeaderCellDef>Year Of Performance</th>
+      <td mat-cell *matCellDef="let element">{{ element['_yearOfPerformance'] }}</td>
+    </ng-container>
+
+    <!--Firstname Column-->
+    <ng-container matColumnDef="Remark">
+      <th mat-header-cell *matHeaderCellDef>Remark</th>
+      <td mat-cell *matCellDef="let element">{{ element['_remark'] }}</td>
+    </ng-container>
+
+    <!--Lastname Column-->
+    <ng-container matColumnDef="Bonus">
+      <th mat-header-cell *matHeaderCellDef>Bonus</th>
+      <td mat-cell *matCellDef="let element">{{ element['_bonus'] }}</td>
+    </ng-container>
+
+    <ng-container class="buttons">
+      <!--Edit Button Column-->
+      <ng-container matColumnDef="Edit Bonus Sheet">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary">Edit</button>
+        </td>
+      </ng-container>
+
+      <!--Delete Button Column-->
+      <ng-container matColumnDef="Delete Bonus Sheet">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="warn">Delete</button>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <br>
+
+  <form class="create-form">
+    <mat-form-field class="bonusSheet" appearance="standard">
+      <mat-label>Employee ID</mat-label>
+      <input matInput placeholder="ID" value="">
+    </mat-form-field>
+    <mat-form-field class="bonusSheet" appearance="standard">
+      <mat-label>Year of Order</mat-label>
+      <input matInput placeholder="Year of Order" value="">
+    </mat-form-field>
+    <mat-form-field class="bonusSheet" appearance="standard">
+      <mat-label>Customer</mat-label>
+      <input matInput placeholder="Customer" value="">
+    </mat-form-field>
+    <mat-form-field class="bonusSheet" appearance="standard">
+      <mat-label>Product</mat-label>
+      <input matInput placeholder="Product" value="">
+    </mat-form-field>
+    <mat-form-field class="bonusSheet" appearance="standard">
+      <mat-label>Quantity</mat-label>
+      <input matInput placeholder="Quantity" value="">
+    </mat-form-field>
+    <button mat-raised-button>Create</button>
+  </form>
 </mat-card>

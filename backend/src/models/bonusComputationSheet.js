@@ -4,48 +4,58 @@ const OrderEvaluation = require('../models/ordersEvaluation');
 class bonusComputationSheet {
 
 
-    _employeeID;
+    _code;
     _yearOfPerformance;
     _socialPerformanceEvaluation;
-    _ordersEvaluation = [];
+    _orderEvaluation;
 
     _signatureCEO;
     _signatureHR;
+    _confirmed;
 
     _remark;
     _bonus;
 
 
-    constructor(employeeID, yearOfPerformance, socialPerformanceEvaluation,
-                ordersEvaluation, signatureCEO, signatureHR, remark) {
-        this._employeeID = employeeID;
-        this._yearOfPerformance = yearOfPerformance;
+    constructor(sale) {
+        this._code = sale['_salesRep']['_id'];
+        this._yearOfPerformance = sale['_salesOrder']['_createdAtSalesOrder'];
+        this._socialPerformanceEvaluation = null;
 
-
-        this._socialPerformanceEvaluation =
-            new SocialPerformanceEvaluation(
-                socialPerformanceEvaluation._leadershipCompetence,
-                socialPerformanceEvaluation._opennessToEmployee,
-                socialPerformanceEvaluation._socialBehaviourToEmployee,
-                socialPerformanceEvaluation._attitudeTowardsClient,
-                socialPerformanceEvaluation._communicationSkills,
-                socialPerformanceEvaluation._integrityToCompany
-            );
-
-
-        for(let i = 0; i < ordersEvaluation.length; i++) {
-            this._ordersEvaluation[i] = new OrderEvaluation(
-                ordersEvaluation[i]._nameOfProduct,
-                ordersEvaluation[i]._client,
-                ordersEvaluation[i]._clientRanking,
-                ordersEvaluation[i]._items
-            );
+        /**
+         * Save
+         * Name of SalesOrder
+         * FullName of Customer
+         * Account Rating
+         * quantity of position
+         * product description of position
+         * productName
+         */
+        // Save product names in an array
+        let products = [];
+        for(let i in sale['_product']) {
+            products[i] = sale['_product'][i]['_productName'];
         }
-
-
-        this._signatureCEO = signatureCEO;
-        this._signatureHR = signatureHR;
-        this._remark = remark;
+        // Save Quantities and Description in an array
+        let quantities = []
+        let descriptions = []
+        for(let i in sale['_position']) {
+            quantities[i] = sale['_position'][i]['_quantity'];
+            descriptions[i] = sale['_position'][i]['_productDescription'];
+        }
+        // Create Order Evaluation
+        this._orderEvaluation = new OrderEvaluation(
+            products,
+            sale['_customer']['_fullname'],
+            sale['_customer']['_accountRating'],
+            quantities,
+            sale['_salesOrder']['_nameSalesOrder'],
+            descriptions
+        )
+        this._signatureCEO = false;
+        this._signatureHR = false;
+        this._confirmed = false;
+        this._remark = "";
         this._bonus = this.calculateBonusBonusComputationSheet();
     }
 
@@ -82,11 +92,11 @@ class bonusComputationSheet {
     }
 
     getEmployeeID() {
-        return this._employeeID;
+        return this._code;
     }
 
     setEmployeeID(value) {
-        this._employeeID = value;
+        this._code = value;
     }
 
     getYearOfPerformance() {
@@ -105,19 +115,16 @@ class bonusComputationSheet {
         this._socialPerformanceEvaluation = value;
     }
 
-    getOrdersEvaluation() {
-        return this._ordersEvaluation;
+    getOrderEvaluation() {
+        return this._orderEvaluation;
     }
 
-    setOrdersEvaluation(value) {
-        this._ordersEvaluation = value;
+    setOrderEvaluation(value) {
+        this._orderEvaluation = value;
     }
     calculateBonusBonusComputationSheet() {
-        let sum = 0.0;
-        for(let i = 0; i < this.getOrdersEvaluation().length; i++) {
-            sum += this.getOrdersEvaluation()[i].getBonus();
-        }
-        return sum + this.getSocialPerformanceEvaluation().getBonus();
+        if(this.getSocialPerformanceEvaluation() === null) return this.getOrderEvaluation().getBonus();
+        return this.getOrderEvaluation().getBonus() + this.getSocialPerformanceEvaluation().getBonus();
     }
 }
 

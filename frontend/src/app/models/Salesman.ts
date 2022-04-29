@@ -4,6 +4,7 @@
 export class Salesman{
   constructor(
     public _employeeID: string,
+    public _code: string,
     public _firstname: string,
     public _lastname: string,
     public _department: string,
