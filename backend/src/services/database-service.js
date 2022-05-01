@@ -21,6 +21,5 @@ exports.fetchData = async (req, res) => {
     // Save all sales in MongoDb
     await bonusComputationSheetService.saveAllSales(req, res, sales);
 
-
     res.send("Salesman and sales Data successfully fetched and saved");
 }

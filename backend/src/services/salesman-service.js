@@ -3,7 +3,7 @@ const Salesman = require('../models/Salesman');
 exports.getSalesmanByID = async (req, res) => {
     const db = req.app.get("db");
     const id = req.params["id"];
-    const salesman = await db.collection('salesman').findOne({"_employeeID": id});
+    const salesman = await db.collection('salesman').findOne({"_code": id});
     res.send(salesman);
 }
 

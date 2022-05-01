@@ -120,7 +120,8 @@ exports.getCompleteSalesOrdersData = async(req, res) => {
             console.log(error);
         }
     }
-    res.send(allData);
+    //res.send(allData);
+    allData = exports.filterCreatedAt(allData);
     return allData;
 }
 
@@ -136,6 +137,14 @@ exports.getProduct = async(req, res) => {
 /**
  * Filter functions
  */
+exports.filterCreatedAt = (data) => {
+    let sales = data;
+    for(let i in sales) {
+        sales[i]['_salesOrder']['_createdAtSalesOrder'] = sales[i]['_salesOrder']['_createdAtSalesOrder'].slice(0, 4);
+    }
+    return sales;
+}
+
 exports.filterCustomerData = (data) => {
     function customer(fullname, accountRating) {
         this._fullname = fullname;

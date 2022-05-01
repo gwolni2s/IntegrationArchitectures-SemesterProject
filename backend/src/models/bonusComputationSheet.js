@@ -7,7 +7,7 @@ class bonusComputationSheet {
     _code;
     _yearOfPerformance;
     _socialPerformanceEvaluation;
-    _orderEvaluation;
+    _orderEvaluation = [];
 
     _signatureCEO;
     _signatureHR;
@@ -18,8 +18,8 @@ class bonusComputationSheet {
 
 
     constructor(sale) {
-        this._code = sale['_salesRep']['_id'];
-        this._yearOfPerformance = sale['_salesOrder']['_createdAtSalesOrder'];
+        this._code = sale[0]['_salesRep']['_id'];
+        this._yearOfPerformance = sale[0]['_salesOrder']['_createdAtSalesOrder'];
         this._socialPerformanceEvaluation = null;
 
         /**
@@ -32,26 +32,34 @@ class bonusComputationSheet {
          * productName
          */
         // Save product names in an array
-        let products = [];
-        for(let i in sale['_product']) {
-            products[i] = sale['_product'][i]['_productName'];
-        }
+        let products;
         // Save Quantities and Description in an array
-        let quantities = []
-        let descriptions = []
-        for(let i in sale['_position']) {
-            quantities[i] = sale['_position'][i]['_quantity'];
-            descriptions[i] = sale['_position'][i]['_productDescription'];
+        let quantities;
+        let descriptions;
+        for(let k in sale) {
+            products = [];
+            quantities = [];
+            descriptions = [];
+            for (let i in sale[k]['_product']) {
+                products[i] = sale[k]['_product'][i]['_productName'];
+            }
+
+            for (let i in sale[k]['_position']) {
+                quantities[i] = sale[k]['_position'][i]['_quantity'];
+                descriptions[i] = sale[k]['_position'][i]['_productDescription'];
+            }
+            // Create Order Evaluation
+            this._orderEvaluation.push(
+                new OrderEvaluation(
+                products,
+                sale[k]['_customer']['_fullname'],
+                sale[k]['_customer']['_accountRating'],
+                quantities,
+                sale[k]['_salesOrder']['_nameSalesOrder'],
+                descriptions)
+            )
         }
-        // Create Order Evaluation
-        this._orderEvaluation = new OrderEvaluation(
-            products,
-            sale['_customer']['_fullname'],
-            sale['_customer']['_accountRating'],
-            quantities,
-            sale['_salesOrder']['_nameSalesOrder'],
-            descriptions
-        )
+
         this._signatureCEO = false;
         this._signatureHR = false;
         this._confirmed = false;
@@ -123,8 +131,14 @@ class bonusComputationSheet {
         this._orderEvaluation = value;
     }
     calculateBonusBonusComputationSheet() {
-        if(this.getSocialPerformanceEvaluation() === null) return this.getOrderEvaluation().getBonus();
-        return this.getOrderEvaluation().getBonus() + this.getSocialPerformanceEvaluation().getBonus();
+        let sum = 0.0;
+        for(let i in this._orderEvaluation) {
+            sum += this._orderEvaluation[i].getBonus();
+        }
+        if(this.getSocialPerformanceEvaluation() !== null) {
+            sum += this.getSocialPerformanceEvaluation().getBonus();
+        }
+        return sum;
     }
 }
 
