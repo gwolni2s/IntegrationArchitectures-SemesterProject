@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BonusComputationSheetService } from "../../services/bonus-computation-sheet.service";
 import { BonusComputationSheet } from "../../models/BonusComputationSheet";
+import {ActivatedRoute, Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-bonus-computation-sheet-page',
@@ -10,16 +12,20 @@ import { BonusComputationSheet } from "../../models/BonusComputationSheet";
 export class BonusComputationSheetPageComponent implements OnInit {
   BonusSheets: BonusComputationSheet[] = [];
   BonusSheet: BonusComputationSheet;
+  selectedBonusSheet!: BonusComputationSheet;
+  sheet: any;
   displayedColumns: string[] = [
+    'ID',
     'Code',
     'Year Of Performance',
-    'Remark',
     'Bonus',
-    'Edit Bonus Sheet',
-    'Delete Bonus Sheet'
+    'Confirmed'
   ]
 
-  constructor(private bonusComputationSheetService: BonusComputationSheetService) { }
+  constructor(private bonusComputationSheetService: BonusComputationSheetService,
+              private route: ActivatedRoute,
+              private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getAllBonusComputationSheets();
@@ -40,15 +46,15 @@ export class BonusComputationSheetPageComponent implements OnInit {
       .subscribe(bonusSheet => this.BonusSheets.push(bonusSheet));
   }
 
-  updateBonusComputationSheet(bonusSheet: BonusComputationSheet): void {
-    this.bonusComputationSheetService.updateBonusComputationSheet(bonusSheet)
-      .subscribe(bonusSheet => this.BonusSheets
-        .filter(bonusSheet => this.BonusSheets[bonusSheet._employeeID] = bonusSheet));
-  }
-
   deleteBonusComputationSheet(id: string): void {
     this.BonusSheets.filter(bonusSheet => bonusSheet._employeeID !== id);
     this.bonusComputationSheetService.deleteBonusComputationSheet(id)
       .subscribe();
+  }
+
+  async goToBonusSheet(row) {
+      this.sheet = row;
+      const id = this.sheet._id;
+      await this.router.navigate([`bonusComputationSheetDetail/${id}`]);
   }
 }

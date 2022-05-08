@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { BonusComputationSheet } from "../models/BonusComputationSheet";
+import {SocialPerformance} from "../models/SocialPerformance";
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +23,8 @@ export class BonusComputationSheetService {
     return this.http.post<BonusComputationSheet>('http://localhost:8080/api/bonusComputationSheet', bonusSheet);
   }
 
-  updateBonusComputationSheet(bonusSheet: BonusComputationSheet): Observable<BonusComputationSheet> {
-    return this.http.put<BonusComputationSheet>(`http://localhost:8080/api/bonusComputationSheet/${bonusSheet._employeeID}`,
-      bonusSheet);
+  updateBonusComputationSheet(id: string, social: SocialPerformance): Observable<BonusComputationSheet> {
+    return this.http.put<BonusComputationSheet>(`http://localhost:8080/api/bonusComputationSheet/${id}`, social);
   }
 
   deleteBonusComputationSheet(id: string): Observable<any> {

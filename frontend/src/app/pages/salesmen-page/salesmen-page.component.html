@@ -36,48 +36,8 @@
       <td mat-cell *matCellDef="let element">{{ element['_department'] }}</td>
     </ng-container>
 
-    <!--Edit Button Column-->
-    <ng-container matColumnDef="Edit Salesman">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-raised-button color="primary">Edit</button>
-      </td>
-    </ng-container>
-
-    <!--Delete Button Column-->
-    <ng-container matColumnDef="Delete Salesman">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-raised-button color="warn">Delete</button>
-      </td>
-    </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <br>
 
-  <form class="create-salesman-form">
-    <mat-form-field class="salesman" appearance="standard">
-      <mat-label>Employee ID</mat-label>
-      <input matInput placeholder="ID" value="">
-    </mat-form-field>
-    <mat-form-field class="salesman" appearance="standard">
-      <mat-label>Code</mat-label>
-      <input matInput placeholder="code" value="">
-    </mat-form-field>
-    <mat-form-field class="salesman" appearance="standard">
-      <mat-label>Firstname</mat-label>
-      <input matInput placeholder="Firstname" value="">
-    </mat-form-field>
-    <mat-form-field class="salesman" appearance="standard">
-      <mat-label>Lastname</mat-label>
-      <input matInput placeholder="Lastname" value="">
-    </mat-form-field>
-    <mat-form-field class="salesman" appearance="standard">
-      <mat-label>Department</mat-label>
-      <input matInput placeholder="Department" value="">
-    </mat-form-field>
-    <button mat-raised-button>Create</button>
-  </form>
 </mat-card>

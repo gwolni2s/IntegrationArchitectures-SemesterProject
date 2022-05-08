@@ -15,9 +15,8 @@ export class SalesmenPageComponent implements OnInit {
     'Code',
     'Firstname',
     'Lastname',
-    'Department',
-    'Edit Salesman',
-    'Delete Salesman'];
+    'Department'
+  ];
 
   constructor(private salesmanService: SalesmanService) { }
 

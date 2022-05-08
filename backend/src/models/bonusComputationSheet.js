@@ -18,53 +18,62 @@ class bonusComputationSheet {
 
 
     constructor(sale) {
-        this._code = sale[0]['_salesRep']['_id'];
-        this._yearOfPerformance = sale[0]['_salesOrder']['_createdAtSalesOrder'];
-        this._socialPerformanceEvaluation = null;
+        if(sale != null) {
+            this._code = sale[0]['_salesRep']['_id'];
+            this._yearOfPerformance = sale[0]['_salesOrder']['_createdAtSalesOrder'];
+            this._socialPerformanceEvaluation = null;
 
-        /**
-         * Save
-         * Name of SalesOrder
-         * FullName of Customer
-         * Account Rating
-         * quantity of position
-         * product description of position
-         * productName
-         */
-        // Save product names in an array
-        let products;
-        // Save Quantities and Description in an array
-        let quantities;
-        let descriptions;
-        for(let k in sale) {
-            products = [];
-            quantities = [];
-            descriptions = [];
-            for (let i in sale[k]['_product']) {
-                products[i] = sale[k]['_product'][i]['_productName'];
+            /**
+             * Save
+             * Name of SalesOrder
+             * FullName of Customer
+             * Account Rating
+             * quantity of position
+             * product description of position
+             * productName
+             */
+                // Save product names in an array
+            let products;
+            // Save Quantities and Description in an array
+            let quantities;
+            let descriptions;
+            for (let k in sale) {
+                products = [];
+                quantities = [];
+                descriptions = [];
+                for (let i in sale[k]['_product']) {
+                    products[i] = sale[k]['_product'][i]['_productName'];
+                }
+
+                for (let i in sale[k]['_position']) {
+                    quantities[i] = sale[k]['_position'][i]['_quantity'];
+                    descriptions[i] = sale[k]['_position'][i]['_productDescription'];
+                }
+                // Create Order Evaluation
+                this._orderEvaluation.push(
+                    new OrderEvaluation(
+                        products,
+                        sale[k]['_customer']['_fullname'],
+                        sale[k]['_customer']['_accountRating'],
+                        quantities,
+                        sale[k]['_salesOrder']['_nameSalesOrder'],
+                        descriptions)
+                )
             }
 
-            for (let i in sale[k]['_position']) {
-                quantities[i] = sale[k]['_position'][i]['_quantity'];
-                descriptions[i] = sale[k]['_position'][i]['_productDescription'];
-            }
-            // Create Order Evaluation
-            this._orderEvaluation.push(
-                new OrderEvaluation(
-                products,
-                sale[k]['_customer']['_fullname'],
-                sale[k]['_customer']['_accountRating'],
-                quantities,
-                sale[k]['_salesOrder']['_nameSalesOrder'],
-                descriptions)
-            )
+            this._signatureCEO = false;
+            this._signatureHR = false;
+            this._confirmed = false;
+            this._remark = "";
+            this.calculateBonusBonusComputationSheet();
         }
+    }
+    setCode(code) {
+        this._code = code;
+    }
 
-        this._signatureCEO = false;
-        this._signatureHR = false;
-        this._confirmed = false;
-        this._remark = "";
-        this._bonus = this.calculateBonusBonusComputationSheet();
+    setConfirmed(value) {
+        this._confirmed = value;
     }
 
     getSignatureCEO() {
@@ -95,8 +104,8 @@ class bonusComputationSheet {
         return this._bonus;
     }
 
-    setBonus(value) {
-        this._bonus = value;
+    setBonus() {
+        this.calculateBonusBonusComputationSheet();
     }
 
     getEmployeeID() {
@@ -133,12 +142,12 @@ class bonusComputationSheet {
     calculateBonusBonusComputationSheet() {
         let sum = 0.0;
         for(let i in this._orderEvaluation) {
-            sum += this._orderEvaluation[i].getBonus();
+            sum += this._orderEvaluation[i]['_bonus'];
         }
         if(this.getSocialPerformanceEvaluation() !== null) {
             sum += this.getSocialPerformanceEvaluation().getBonus();
         }
-        return sum;
+        this._bonus = sum;
     }
 }
 

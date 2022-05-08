@@ -1,10 +1,8 @@
 table {
   width: 100%;
 }
-.create-salesman-form {
+.create-socialPerformance-form {
   display: flex;
   justify-content: space-evenly;
 }
-mat-card {
-  justify-content: center;
-}
+

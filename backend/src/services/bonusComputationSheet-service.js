@@ -1,11 +1,13 @@
 const BonusComputationSheet = require('../models/bonusComputationSheet');
+const {ObjectId} = require("mongodb");
+const SocialPerformance = require('../models/socialPerformanceEvaluation');
 
 exports.getBonusComputationSheetByID = async (req, res) => {
     const db = req.app.get("db");
     const id = req.params["id"];
     const bonusComputationSheet = await
         db.collection('bonusComputationSheet')
-            .findOne({"_code": id});
+            .findOne({"_id": ObjectId(id)});
     res.send(bonusComputationSheet);
 }
 
@@ -39,18 +41,36 @@ exports.updateBonusComputationSheet = async (req, res) => {
     const db = req.app.get("db");
     const id = req.params["id"];
     const data = req.body;
+    console.log(data);
+    const socialPerformance = new SocialPerformance(
+        data._leadershipCompetence,
+        data._opennessToEmployee,
+        data._socialBehaviourToEmployee,
+        data._attitudeTowardsClient,
+        data._communicationSkills,
+        data._integrityToCompany
+    );
+    let obj = await
+        db.collection('bonusComputationSheet')
+            .findOne({"_id": ObjectId(id)});
+    let bonusSheet = new BonusComputationSheet(null);
+    bonusSheet.setSocialPerformanceEvaluation(socialPerformance);
+    bonusSheet.setYearOfPerformance(obj['_yearOfPerformance']);
+    bonusSheet.setSignatureCEO(obj['_signatureCEO']);
+    bonusSheet.setSignatureHR(obj['_signatureHR']);
+    bonusSheet.setOrderEvaluation(obj['_orderEvaluation']);
+    bonusSheet.setRemark(obj['_remark']);
+    bonusSheet.setConfirmed(obj['_confirmed']);
+    bonusSheet.setCode(obj['_code']);
+    bonusSheet.setBonus();
+
     db.collection('bonusComputationSheet')
         .updateOne(
-            {"_employeeID": id},
+            {"_id": ObjectId(id)},
             {
                 $set: {
-                    _employeeID: data._employeeID,
-                    _yearOfPerformance: data._yearOfPerformance,
-                    _socialPerformanceEvaluation: data._socialPerformanceEvaluation,
-                    _ordersEvaluation: data._ordersEvaluation,
-                    _signatureCEO: data._signatureCEO,
-                    _signatureHR: data._signatureHR,
-                    _remark: data._remark
+                    _socialPerformanceEvaluation: bonusSheet.getSocialPerformanceEvaluation(),
+                    _bonus: bonusSheet.getBonus()
                 }
             }
         );

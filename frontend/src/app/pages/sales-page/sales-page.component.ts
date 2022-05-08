@@ -8,14 +8,14 @@ import { Sales } from "../../models/Sales";
   styleUrls: ['./sales-page.component.css']
 })
 export class SalesPageComponent implements OnInit {
-  Sales: Sales[] = [];
+  Sales: Sales[];
   Sale: Sales;
   displayedColumns: string[] = [
-    'Code',
-    'Year of Order',
     'Customer',
-    'Product',
-    'Quantity'
+    'Products',
+    'Quantity',
+    'Ranking',
+    'Bonus'
   ]
 
   constructor(private salesService: SalesService) {
@@ -27,7 +27,18 @@ export class SalesPageComponent implements OnInit {
 
   getAllData(): void {
     this.salesService.getAllData()
-      .subscribe(sales => this.Sales = sales);
+      .subscribe(sales => this.filterToSales(sales));
+  }
+
+  filterToSales(data): void {
+    let temp = [];
+    let count = 0;
+    for(let i in data) {
+      for(let j in data[i]['_orderEvaluation']) {
+        temp[count++] = data[i]['_orderEvaluation'][j];
+      }
+    }
+    this.Sales = temp;
   }
 }
 

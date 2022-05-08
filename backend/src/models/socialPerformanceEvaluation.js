@@ -1,12 +1,5 @@
 class socialPerformanceEvaluation {
 
-    _maxBonus = 100; //default: 100 dollars, maximal possible Bonus for each criteria
-    /**
-        on a scale from 1 to 5
-        1 equals 20% and 5 equals 100%
-     */
-    _targetValue;
-
     _leadershipCompetence;
     _opennessToEmployee;
     _socialBehaviourToEmployee;
@@ -21,6 +14,7 @@ class socialPerformanceEvaluation {
     _communicationSkillsBonus;
     _integrityToCompanyBonus;
 
+    _maxBonus = 100; //100 $, default
     _bonus;
 
     constructor(leadershipCompetence, opennessToEmployee,
@@ -33,6 +27,7 @@ class socialPerformanceEvaluation {
         this._communicationSkills = communicationSkills;
         this._integrityToCompany = integrityToCompany;
         this._bonus = this.calculateBonusSocialPerformanceEvaluation();
+
     }
 
 
@@ -92,14 +87,6 @@ class socialPerformanceEvaluation {
         this._maxBonus = value;
     }
 
-    getTargetValue() {
-        return this._targetValue;
-    }
-
-    setTargetValue(value) {
-        this._targetValue = value;
-    }
-
     getBonus() {
         return this._bonus;
     }
@@ -108,48 +95,72 @@ class socialPerformanceEvaluation {
         this._bonus = value;
     }
 
-    getLeadershipCompetence() {
-        return this._leadershipCompetence;
+    getLeadershipCompetence(str) {
+        if(str === "target") {
+            return this._leadershipCompetence[0];
+        } else {
+            return this._leadershipCompetence[1];
+        }
     }
 
     setLeadershipCompetence(value) {
         this._leadershipCompetence = value;
     }
 
-    getOpennessToEmployee() {
-        return this._opennessToEmployee;
+    getOpennessToEmployee(str) {
+       if(str === "target") {
+           return this._opennessToEmployee[0];
+       } else {
+           return this._opennessToEmployee[1];
+       }
     }
 
     setOpennessToEmployee(value) {
         this._opennessToEmployee = value;
     }
 
-    getSocialBehaviourToEmployee() {
-        return this._socialBehaviourToEmployee;
+    getSocialBehaviourToEmployee(str) {
+        if(str === "target") {
+            return this._socialBehaviourToEmployee[0];
+        } else {
+            return this._socialBehaviourToEmployee[1];
+        }
     }
 
     setSocialBehaviourToEmployee(value) {
         this._socialBehaviourToEmployee = value;
     }
 
-    getAttitudeTowardsClient() {
-        return this._attitudeTowardsClient;
+    getAttitudeTowardsClient(str) {
+        if(str === "target") {
+            return this._attitudeTowardsClient[0];
+        } else {
+            return this._attitudeTowardsClient[1];
+        }
     }
 
     setAttitudeTowardsClient(value) {
         this._attitudeTowardsClient = value;
     }
 
-    getCommunicationSkills() {
-        return this._communicationSkills;
+    getCommunicationSkills(str) {
+        if(str === "target") {
+            return this._communicationSkills[0];
+        } else {
+            return this._communicationSkills[1];
+        }
     }
 
     setCommunicationSkills(value) {
         this._communicationSkills = value;
     }
 
-    getIntegrityToCompany() {
-        return this._integrityToCompany;
+    getIntegrityToCompany(str) {
+       if(str === "target") {
+           return this._integrityToCompany[0];
+       } else {
+           return this._integrityToCompany[1];
+       }
     }
 
     setIntegrityToCompany(value) {
@@ -168,23 +179,23 @@ class socialPerformanceEvaluation {
      */
     calculateBonusSocialPerformanceEvaluation() {
         this._attitudeTowardsClientBonus =
-            this.getMaxBonus() * (parseInt(this.getAttitudeTowardsClient())
-                / this.getTargetValue());
+            this.getMaxBonus() * (this.getAttitudeTowardsClient()
+                / this.getAttitudeTowardsClient("target"));
         this._socialBehaviourToEmployeeBonus =
-            this.getMaxBonus() * (parseInt(this.getSocialBehaviourToEmployee())
-                / this.getTargetValue());
+            this.getMaxBonus() * (this.getSocialBehaviourToEmployee()
+                / this.getSocialBehaviourToEmployee("target"));
         this._leadershipCompetenceBonus =
-            this.getMaxBonus() * (parseInt(this.getLeadershipCompetence())
-                / this.getTargetValue());
+            this.getMaxBonus() * (this.getLeadershipCompetence()
+                / this.getLeadershipCompetence("target"));
         this._communicationSkillsBonus =
-            this.getMaxBonus() * (parseInt(this.getCommunicationSkills())
-                / this.getTargetValue());
+            this.getMaxBonus() * (this.getCommunicationSkills()
+                / this.getCommunicationSkills("target"));
         this._opennessToEmployeeBonus =
-            this.getMaxBonus() * (parseInt(this.getOpennessToEmployee())
-                / this.getTargetValue());
+            this.getMaxBonus() * (this.getOpennessToEmployee()
+                / this.getOpennessToEmployee("target"));
         this._integrityToCompanyBonus =
-            this.getMaxBonus() * (parseInt(this.getIntegrityToCompany())
-                / this.getTargetValue());
+            this.getMaxBonus() * (this.getIntegrityToCompany()
+                / this.getIntegrityToCompany("target"));
 
         return this.getSocialBehaviourToEmployeeBonus() +
             this.getAttitudeTowardsClientBonus() +

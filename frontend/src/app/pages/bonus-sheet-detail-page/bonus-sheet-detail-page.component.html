@@ -1,0 +1,308 @@
+<mat-card>
+  <!-- Header Title for Bonus Computation sheet -->
+    <mat-card-header>
+      <mat-card-title>
+        <h1>Bonus Computation Sheet for Code: <u>{{ bonusSheet[0]['_code']}}</u> and Year: <u>{{ bonusSheet[0]['_yearOfPerformance'] }}</u></h1>
+      </mat-card-title>
+    </mat-card-header>
+  <!-- Mat Card for Overview Table -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2>Overview</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <table mat-table [dataSource]="bonusSheet" class="mat-elevation-z8">
+
+      <!--ID Column-->
+      <ng-container matColumnDef="ID">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element['_id'] }}</td>
+      </ng-container>
+
+      <!--Code Column-->
+      <ng-container matColumnDef="Code">
+        <th mat-header-cell *matHeaderCellDef>Code</th>
+        <td mat-cell *matCellDef="let element">{{ element['_code'] }}</td>
+      </ng-container>
+
+      <!--Year Column-->
+      <ng-container matColumnDef="YearOfPerformance">
+        <th mat-header-cell *matHeaderCellDef>Year Of Performance</th>
+        <td mat-cell *matCellDef="let element">{{ element['_yearOfPerformance'] }}</td>
+      </ng-container>
+
+      <!--Signature CEO Column-->
+      <ng-container matColumnDef="SignatureCEO">
+        <th mat-header-cell *matHeaderCellDef>SignatureCEO</th>
+        <td mat-cell *matCellDef="let element">{{ element['_signatureCEO'] }}</td>
+      </ng-container>
+
+      <!--SignatureHR Column-->
+      <ng-container matColumnDef="SignatureHR">
+        <th mat-header-cell *matHeaderCellDef>SignatureHR</th>
+        <td mat-cell *matCellDef="let element">{{ element['_signatureHR'] }}</td>
+      </ng-container>
+
+      <!--Confirmed Column-->
+      <ng-container matColumnDef="Confirmed">
+        <th mat-header-cell *matHeaderCellDef>Confirmed</th>
+        <td mat-cell *matCellDef="let element">{{ element['_confirmed'] }}</td>
+      </ng-container>
+
+      <!--Remark Column-->
+      <ng-container matColumnDef="Remark">
+        <th mat-header-cell *matHeaderCellDef>Remark</th>
+        <td mat-cell *matCellDef="let element">{{ element['_remark'] }}</td>
+      </ng-container>
+
+      <!--Bonus Column-->
+      <ng-container matColumnDef="Bonus">
+        <th mat-header-cell *matHeaderCellDef>Bonus</th>
+        <td mat-cell *matCellDef="let element">{{ element['_bonus'] | number: '1.0-0' }} $</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsBonus"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsBonus;"></tr>
+    </table>
+  </mat-card>
+  <br>
+  <!-- Mat Card for Salesman Table -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2>{{ salesman[0]['_firstname'] }}  {{ salesman[0]['_lastname'] }}</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <table mat-table [dataSource]="salesman" class="mat-elevation-z7">
+
+      <!--Employee ID Column-->
+      <ng-container matColumnDef="Employee ID">
+        <th mat-header-cell *matHeaderCellDef>Employee ID</th>
+        <td mat-cell *matCellDef="let element">{{ element['_employeeID'] }}</td>
+      </ng-container>
+
+      <!--Code Column-->
+      <ng-container matColumnDef="Code">
+        <th mat-header-cell *matHeaderCellDef>Code</th>
+        <td mat-cell *matCellDef="let element">{{ element['_code'] }}</td>
+      </ng-container>
+
+      <!--Firstname Column-->
+      <ng-container matColumnDef="Firstname">
+        <th mat-header-cell *matHeaderCellDef>Firstname</th>
+        <td mat-cell *matCellDef="let element">{{ element['_firstname'] }}</td>
+      </ng-container>
+
+      <!--Lastname Column-->
+      <ng-container matColumnDef="Lastname">
+        <th mat-header-cell *matHeaderCellDef>Lastname</th>
+        <td mat-cell *matCellDef="let element">{{ element['_lastname'] }}</td>
+      </ng-container>
+
+      <!--Department Column-->
+      <ng-container matColumnDef="Department">
+        <th mat-header-cell *matHeaderCellDef>Department</th>
+        <td mat-cell *matCellDef="let element">{{ element['_department'] }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsSalesman"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsSalesman;"></tr>
+    </table>
+  </mat-card>
+  <br>
+  <!-- Mat Card for Social Performance Table -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2>Social Performance Evaluation</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <table *ngIf="socialPerformances.length != 0" mat-table [dataSource]="socialPerformances" class="mat-elevation-z7">
+
+      <!--Code Column-->
+      <ng-container matColumnDef="Criteria">
+        <th mat-header-cell *matHeaderCellDef>Criteria</th>
+        <td mat-cell *matCellDef="let element"> {{ element['Criterion'] }} </td>
+      </ng-container>
+
+      <!--Code Column-->
+      <ng-container matColumnDef="Target Value">
+        <th mat-header-cell *matHeaderCellDef>Target Value</th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="isEdit[socialPerformances.indexOf(element)] == false">
+            {{ element['TargetValue'] }}
+          </div>
+          <div *ngIf="isEdit[socialPerformances.indexOf(element)] == true">
+            <mat-form-field appearance="standard">
+              <mat-label>Target Value</mat-label>
+              <input
+                matInput
+                #editedTargetValue
+                (keyup)="saveTargetValue(editedTargetValue.value, socialPerformances.indexOf(element))"
+              >
+            </mat-form-field>
+          </div>
+        </td>
+      </ng-container>
+
+      <!--Firstname Column-->
+      <ng-container matColumnDef="Actual Value">
+        <th mat-header-cell *matHeaderCellDef>Actual Value</th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="isEdit[socialPerformances.indexOf(element)] == false">
+            {{ element['ActualValue'] }}
+          </div>
+          <div *ngIf="isEdit[socialPerformances.indexOf(element)] == true">
+            <mat-form-field appearance="standard">
+              <mat-label>Target Value</mat-label>
+              <input
+                matInput
+                #editedActualValue
+                (keyup)="saveActualValue(editedActualValue.value, socialPerformances.indexOf(element))"
+              >
+            </mat-form-field>
+          </div>
+        </td>
+      </ng-container>
+
+      <!--Lastname Column-->
+      <ng-container matColumnDef="Bonus">
+        <th mat-header-cell *matHeaderCellDef>Bonus</th>
+        <td mat-cell *matCellDef="let element">{{ element['Bonus'] | number: '1.0-0' }} $</td>
+      </ng-container>
+
+      <!--Edit-Btn Column-->
+      <ng-container matColumnDef="Edit-Btn">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="isEdit[socialPerformances.indexOf(element)] == false">
+            <button mat-raised-button (click)="editRow(socialPerformances.indexOf(element))">Edit</button>
+          </div>
+          <div *ngIf="isEdit[socialPerformances.indexOf(element)] == true">
+            <button mat-raised-button (click)="saveRow(socialPerformances.indexOf(element))">Save</button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsPerformances"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsPerformances;"></tr>
+    </table>
+    <br>
+    <table *ngIf="socialPerformances.length != 0" mat-table [dataSource]="bonusSheet" class="mat-elevation-z3">
+
+      <!--Code Column-->
+      <ng-container matColumnDef="Total Bonus">
+        <th mat-header-cell *matHeaderCellDef>Total Bonus</th>
+        <td mat-cell *matCellDef="let element"> {{ element['_socialPerformanceEvaluation']['_bonus'] | number: '1.0-0' }} $</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="overallBonusColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: overallBonusColumns;"></tr>
+    </table>
+
+    <table id="edit-table" *ngIf="socialPerformances.length == 0" mat-table [dataSource]="criteria" class="mat-elevation-z7">
+
+      <!--Code Column-->
+      <ng-container matColumnDef="Criteria">
+        <th mat-header-cell *matHeaderCellDef>Criteria</th>
+        <td mat-cell *matCellDef="let element"> {{ element }} </td>
+      </ng-container>
+
+      <!--Code Column-->
+      <ng-container matColumnDef="Target Value">
+        <th mat-header-cell *matHeaderCellDef>Target Value</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="legacy">
+            <mat-label>Target Value</mat-label>
+            <input
+              matInput
+              #targetvalue
+              (keyup)="saveTargetValue(targetvalue.value, criteria.indexOf(element))"
+            >
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <!--Firstname Column-->
+      <ng-container matColumnDef="Actual Value">
+        <th mat-header-cell *matHeaderCellDef>Actual Value</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="standard">
+            <mat-label>Actual Value</mat-label>
+            <input
+              matInput
+              #actualValue
+              (keyup)="saveActualValue(actualValue.value, criteria.indexOf(element))"
+            >
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsPerformance"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsPerformance;"></tr>
+    </table>
+
+    <br>
+    <button id="create-btn" *ngIf="socialPerformances.length == 0" mat-raised-button (click)="createSocialPerformance()">Create</button>
+  </mat-card>
+  <br>
+  <!-- Mat Card for Order Record Table -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2>Sales</h2>
+      </mat-card-title>
+    </mat-card-header>
+
+    <table mat-table [dataSource]="bonusSheet[0]['_orderEvaluation']" class="mat-elevation-z8">
+
+      <!--Client Column-->
+      <ng-container matColumnDef="Customer">
+        <th mat-header-cell *matHeaderCellDef>Customer</th>
+        <td mat-cell *matCellDef="let element">{{ element['_client'] }}</td>
+      </ng-container>
+
+      <!--Product Column-->
+      <ng-container matColumnDef="Products">
+        <th mat-header-cell *matHeaderCellDef>Product</th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="element['_nameOfProduct'][0] && element['_nameOfProduct'][1]">
+            {{ element['_nameOfProduct'][0] }}, {{ element['_nameOfProduct'][1] }}
+          </div>
+          <div *ngIf="element['_nameOfProduct'][0] && !element['_nameOfProduct'][1]">
+            {{ element['_nameOfProduct'][0] }}
+          </div>
+        </td>
+      </ng-container>
+
+      <!--Quantity Column-->
+      <ng-container matColumnDef="Quantity">
+        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="element['_items'][0] && element['_items'][1]">
+            {{ element['_items'][0] | number: '1.0-0' }}, {{ element['_items'][1] | number: '1.0-0'  }}
+          </div>
+          <div *ngIf="element['_items'][0] && !element['_items'][1]">
+            {{ element['_items'][0] | number: '1.0-0' }}
+          </div>
+        </td>
+      </ng-container>
+
+      <!--Client Ranking Column-->
+      <ng-container matColumnDef="Ranking">
+        <th mat-header-cell *matHeaderCellDef>Client Ranking</th>
+        <td mat-cell *matCellDef="let element">{{ element['_clientRanking'] }}</td>
+      </ng-container>
+
+      <!--Bonus Column-->
+      <ng-container matColumnDef="Bonus">
+        <th mat-header-cell *matHeaderCellDef>Bonus</th>
+        <td mat-cell *matCellDef="let element">{{ element['_bonus'] }} $</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsSales"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsSales;"></tr>
+    </table>
+  </mat-card>
+</mat-card>

@@ -19,7 +19,6 @@ export class MenuBarComponent implements OnInit {
   buttons = [
     {title: 'Salesmen', routerLink: 'salesmen'},
     {title: 'BonusComputationSheets', routerLink: 'bonusComputationSheets'},
-    {title: 'SocialPerformance', routerLink: 'socialPerformance'},
     {title: 'Sales', routerLink: 'sales'}
   ];
 

@@ -5,11 +5,11 @@ import {AuthGuardService} from "./services/auth-guard.service";
 import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.component";
 import {SalesmenPageComponent} from "./pages/salesmen-page/salesmen-page.component";
 import {BonusComputationSheetPageComponent} from "./pages/bonus-computation-sheet-page/bonus-computation-sheet-page.component";
-import {SocialPerformancePageComponent} from "./pages/social-performance-page/social-performance-page.component";
 import {SalesPageComponent} from "./pages/sales-page/sales-page.component";
 import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
 import {AccountsPageComponent} from "./pages/accounts-page/accounts-page.component";
 import {EventLogsPageComponent} from "./pages/event-logs-page/event-logs-page.component";
+import { BonusSheetDetailPageComponent } from "./pages/bonus-sheet-detail-page/bonus-sheet-detail-page.component";
 
 /*
   This array holds the relation of paths and components which angular router should resolve.
@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: '', component: SalesmenPageComponent, canActivate: [AuthGuardService]},
   {path: 'salesmen', component: SalesmenPageComponent, canActivate: [AuthGuardService]},
   {path: 'bonusComputationSheets', component: BonusComputationSheetPageComponent, canActivate: [AuthGuardService]},
-  {path: 'socialPerformance', component: SocialPerformancePageComponent, canActivate: [AuthGuardService]},
+  {path: 'bonusComputationSheetDetail/:id', component: BonusSheetDetailPageComponent, canActivate: [AuthGuardService]},
   {path: 'sales', component: SalesPageComponent, canActivate: [AuthGuardService]},
   {path: 'eventLogs', component: EventLogsPageComponent, canActivate: [AuthGuardService]},
   {path: 'accounts', component: AccountsPageComponent, canActivate: [AuthGuardService]},
