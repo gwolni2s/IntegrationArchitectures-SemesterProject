@@ -42,38 +42,85 @@ exports.updateBonusComputationSheet = async (req, res) => {
     const id = req.params["id"];
     const data = req.body;
     console.log(data);
-    const socialPerformance = new SocialPerformance(
-        data._leadershipCompetence,
-        data._opennessToEmployee,
-        data._socialBehaviourToEmployee,
-        data._attitudeTowardsClient,
-        data._communicationSkills,
-        data._integrityToCompany
-    );
-    let obj = await
-        db.collection('bonusComputationSheet')
-            .findOne({"_id": ObjectId(id)});
-    let bonusSheet = new BonusComputationSheet(null);
-    bonusSheet.setSocialPerformanceEvaluation(socialPerformance);
-    bonusSheet.setYearOfPerformance(obj['_yearOfPerformance']);
-    bonusSheet.setSignatureCEO(obj['_signatureCEO']);
-    bonusSheet.setSignatureHR(obj['_signatureHR']);
-    bonusSheet.setOrderEvaluation(obj['_orderEvaluation']);
-    bonusSheet.setRemark(obj['_remark']);
-    bonusSheet.setConfirmed(obj['_confirmed']);
-    bonusSheet.setCode(obj['_code']);
-    bonusSheet.setBonus();
 
-    db.collection('bonusComputationSheet')
-        .updateOne(
-            {"_id": ObjectId(id)},
-            {
-                $set: {
-                    _socialPerformanceEvaluation: bonusSheet.getSocialPerformanceEvaluation(),
-                    _bonus: bonusSheet.getBonus()
+    if(data._signatureCEO) {
+        db.collection('bonusComputationSheet')
+            .updateOne(
+                {"_id": ObjectId(id)},
+                {
+                    $set: {
+                        _signatureCEO: data._signatureCEO
+                    }
                 }
-            }
+            );
+    }
+    if(data._signatureHR) {
+        db.collection('bonusComputationSheet')
+            .updateOne(
+                {"_id": ObjectId(id)},
+                {
+                    $set: {
+                        _signatureHR: data._signatureHR
+                    }
+                }
+            );
+    }
+    if(data._confirmed) {
+        db.collection('bonusComputationSheet')
+            .updateOne(
+                {"_id": ObjectId(id)},
+                {
+                    $set: {
+                        _confirmed: data._confirmed
+                    }
+                }
+            );
+    }
+    if(data._remark) {
+        db.collection('bonusComputationSheet')
+            .updateOne(
+                {"_id": ObjectId(id)},
+                {
+                    $set: {
+                        _remark: data._remark
+                    }
+                }
+            );
+    }
+    if(data._leadershipCompetence) {
+        const socialPerformance = new SocialPerformance(
+            data._leadershipCompetence,
+            data._opennessToEmployee,
+            data._socialBehaviourToEmployee,
+            data._attitudeTowardsClient,
+            data._communicationSkills,
+            data._integrityToCompany
         );
+        let obj = await
+            db.collection('bonusComputationSheet')
+                .findOne({"_id": ObjectId(id)});
+        let bonusSheet = new BonusComputationSheet(null);
+        bonusSheet.setSocialPerformanceEvaluation(socialPerformance);
+        bonusSheet.setYearOfPerformance(obj['_yearOfPerformance']);
+        bonusSheet.setSignatureCEO(obj['_signatureCEO']);
+        bonusSheet.setSignatureHR(obj['_signatureHR']);
+        bonusSheet.setOrderEvaluation(obj['_orderEvaluation']);
+        bonusSheet.setRemark(obj['_remark']);
+        bonusSheet.setConfirmed(obj['_confirmed']);
+        bonusSheet.setCode(obj['_code']);
+        bonusSheet.setBonus();
+
+        db.collection('bonusComputationSheet')
+            .updateOne(
+                {"_id": ObjectId(id)},
+                {
+                    $set: {
+                        _socialPerformanceEvaluation: bonusSheet.getSocialPerformanceEvaluation(),
+                        _bonus: bonusSheet.getBonus()
+                    }
+                }
+            );
+    }
     res.send("Bonus Computation Sheet with ID: " + id +
         " successfully updated.");
 }

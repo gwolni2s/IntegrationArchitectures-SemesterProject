@@ -13,6 +13,9 @@ import {SocialPerformance} from "../../models/SocialPerformance";
 })
 export class BonusSheetDetailPageComponent implements OnInit {
 
+  remarkIsEdit: boolean[] = [false];
+  remarkValue: string[] = [];
+
   id: string;
   editTargetValue: number[] = [];
   editActualValue: number[] = [];
@@ -24,7 +27,12 @@ export class BonusSheetDetailPageComponent implements OnInit {
 
   overallBonusColumns: string[] = [
     "Total Bonus"
-  ]
+  ];
+
+  remarkColumns: string[] = [
+    "Remark",
+    "Button"
+  ];
 
   criteria: any[] = [
     "Leadership Competence",
@@ -56,7 +64,6 @@ export class BonusSheetDetailPageComponent implements OnInit {
     "SignatureCEO",
     "SignatureHR",
     "Confirmed",
-    "Remark",
     "Bonus"
   ];
 
@@ -171,6 +178,42 @@ export class BonusSheetDetailPageComponent implements OnInit {
     this.isEdit[index] = false;
     this.createSocialPerformance();
   }
-
-
+  editRemark(index): void {
+    this.remarkIsEdit[index] = true;
+  }
+  saveRemark(index): void {
+    this.remarkIsEdit[index] = false;
+    console.log(this.remarkValue);
+    let remark = {_remark: this.remarkValue[index]};
+    this.bonusSheetService.updateBonusComputationSheet(this.id,remark)
+      .subscribe();
+    console.log(remark);
+    window.location.reload();
+  }
+  updateRemark(value, index): void {
+    this.remarkValue[index] = value;
+  }
+  setSignatureCEO(value): void {
+    let sig = {_signatureCEO: value};
+    console.log(sig);
+    this.bonusSheetService.updateBonusComputationSheet(this.id, sig)
+      .subscribe();
+    window.location.reload();
+  }
+  setSignatureHR(value): void {
+    let sig = {_signatureHR: value};
+    console.log(sig);
+    this.bonusSheetService.updateBonusComputationSheet(this.id, sig)
+      .subscribe();
+    window.location.reload();
+  }
+  setConfirmed(value): void {
+    let sig = {_confirmed: value};
+    console.log(sig);
+    this.bonusSheetService.updateBonusComputationSheet(this.id, sig)
+      .subscribe();
+    window.location.reload();
+  }
 }
+
+

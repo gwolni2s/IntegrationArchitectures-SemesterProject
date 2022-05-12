@@ -23,8 +23,8 @@ export class BonusComputationSheetService {
     return this.http.post<BonusComputationSheet>('http://localhost:8080/api/bonusComputationSheet', bonusSheet);
   }
 
-  updateBonusComputationSheet(id: string, social: SocialPerformance): Observable<BonusComputationSheet> {
-    return this.http.put<BonusComputationSheet>(`http://localhost:8080/api/bonusComputationSheet/${id}`, social);
+  updateBonusComputationSheet(id: string, obj: Object): Observable<BonusComputationSheet> {
+    return this.http.put<BonusComputationSheet>(`http://localhost:8080/api/bonusComputationSheet/${id}`, obj);
   }
 
   deleteBonusComputationSheet(id: string): Observable<any> {

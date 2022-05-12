@@ -35,25 +35,46 @@
       <!--Signature CEO Column-->
       <ng-container matColumnDef="SignatureCEO">
         <th mat-header-cell *matHeaderCellDef>SignatureCEO</th>
-        <td mat-cell *matCellDef="let element">{{ element['_signatureCEO'] }}</td>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="element['_signatureCEO'] == true">
+            <mat-icon>check_circle</mat-icon>
+          </div>
+          <div *ngIf="element['_signatureCEO'] == false">
+            <button (click)="setSignatureCEO(true)">
+            <mat-icon>thumb_down</mat-icon>
+            </button>
+          </div>
+        </td>
       </ng-container>
 
       <!--SignatureHR Column-->
       <ng-container matColumnDef="SignatureHR">
         <th mat-header-cell *matHeaderCellDef>SignatureHR</th>
-        <td mat-cell *matCellDef="let element">{{ element['_signatureHR'] }}</td>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="element['_signatureHR'] == true">
+            <mat-icon>check_circle</mat-icon>
+          </div>
+          <div *ngIf="element['_signatureHR'] == false">
+            <button (click)="setSignatureHR(true)">
+            <mat-icon>thumb_down</mat-icon>
+            </button>
+          </div>
+        </td>
       </ng-container>
 
       <!--Confirmed Column-->
       <ng-container matColumnDef="Confirmed">
         <th mat-header-cell *matHeaderCellDef>Confirmed</th>
-        <td mat-cell *matCellDef="let element">{{ element['_confirmed'] }}</td>
-      </ng-container>
-
-      <!--Remark Column-->
-      <ng-container matColumnDef="Remark">
-        <th mat-header-cell *matHeaderCellDef>Remark</th>
-        <td mat-cell *matCellDef="let element">{{ element['_remark'] }}</td>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="element['_confirmed'] == true">
+            <mat-icon>check_circle</mat-icon>
+          </div>
+          <div *ngIf="element['_confirmed'] == false">
+            <button (click)="setConfirmed(true)">
+            <mat-icon>thumb_down</mat-icon>
+            </button>
+          </div>
+        </td>
       </ng-container>
 
       <!--Bonus Column-->
@@ -64,6 +85,46 @@
 
       <tr mat-header-row *matHeaderRowDef="displayedColumnsBonus"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumnsBonus;"></tr>
+    </table>
+
+    <br>
+    <table mat-table [dataSource]="bonusSheet" class="mat-elevation-z3">
+
+      <!--Remark Column-->
+      <ng-container matColumnDef="Remark">
+        <th mat-header-cell *matHeaderCellDef>Remark</th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="remarkIsEdit[bonusSheet.indexOf(element)] == false">
+            {{ element['_remark'] }}
+          </div>
+          <div *ngIf="remarkIsEdit[bonusSheet.indexOf(element)] == true">
+            <mat-form-field appearance="standard">
+              <mat-label>Remark</mat-label>
+              <input
+                matInput
+                #editRemark
+                (keyup)="updateRemark(editRemark.value, bonusSheet.indexOf(element))"
+              >
+            </mat-form-field>
+          </div>
+        </td>
+      </ng-container>
+
+      <!--Edit-Btn Column-->
+      <ng-container matColumnDef="Button">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="remarkIsEdit[bonusSheet.indexOf(element)] == false">
+            <button mat-raised-button (click)="editRemark(bonusSheet.indexOf(element))">Edit</button>
+          </div>
+          <div *ngIf="remarkIsEdit[bonusSheet.indexOf(element)] == true">
+            <button mat-raised-button (click)="saveRemark(bonusSheet.indexOf(element))">Save</button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="remarkColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: remarkColumns;"></tr>
     </table>
   </mat-card>
   <br>
