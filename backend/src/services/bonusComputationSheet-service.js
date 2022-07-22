@@ -273,9 +273,19 @@ exports.saveAllSales = async (req, res, data) => {
         for(let k in orderRecords[i]) {
             console.log("Order Record: ");
             console.log(orderRecords[i][k]);
+            let social = new SocialPerformance(
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0]
+            );
+            let sheet =  new BonusComputationSheet(orderRecords[i][k]);
+            sheet.setSocialPerformanceEvaluation(social);
             await db.collection('bonusComputationSheet')
                 .insertOne(
-                    new BonusComputationSheet(orderRecords[i][k])
+                   sheet
                 );
         }
     }
