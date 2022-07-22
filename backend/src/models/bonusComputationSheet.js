@@ -15,7 +15,7 @@ class bonusComputationSheet {
 
     _remark;
     _bonus;
-
+    _orderBonus;
 
     constructor(sale) {
         if(sale != null) {
@@ -144,6 +144,7 @@ class bonusComputationSheet {
         for(let i in this._orderEvaluation) {
             sum += this._orderEvaluation[i]['_bonus'];
         }
+        this._orderBonus = sum;
         if(this.getSocialPerformanceEvaluation() !== null) {
             sum += this.getSocialPerformanceEvaluation().getBonus();
         }
