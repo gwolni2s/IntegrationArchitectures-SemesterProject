@@ -17,8 +17,8 @@ export class BonusSheetDetailPageComponent implements OnInit {
   remarkValue: string[] = [];
 
   id: string;
-  editTargetValue: number[] = [];
-  editActualValue: number[] = [];
+  editTargetValue: number[] = [0, 0, 0, 0, 0, 0];
+  editActualValue: number[] = [0, 0, 0, 0, 0, 0];
   isEdit: boolean[] = [
     false, false, false, false, false, false
   ];
