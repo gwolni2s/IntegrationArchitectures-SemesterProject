@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BonusComputationSheetService } from "../../services/bonus-computation-sheet.service";
 import { BonusComputationSheet } from "../../models/BonusComputationSheet";
 import {ActivatedRoute, Router} from "@angular/router";
+import {User} from "../../models/User";
+import {UserService} from "../../services/user.service";
 
 
 @Component({
@@ -10,7 +12,9 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./bonus-computation-sheet-page.component.css']
 })
 export class BonusComputationSheetPageComponent implements OnInit {
+  user: User;
   BonusSheets: BonusComputationSheet[] = [];
+  myBonusSheets: BonusComputationSheet[] = [];
   BonusSheet: BonusComputationSheet;
   selectedBonusSheet!: BonusComputationSheet;
   sheet: any;
@@ -24,12 +28,19 @@ export class BonusComputationSheetPageComponent implements OnInit {
 
   constructor(private bonusComputationSheetService: BonusComputationSheetService,
               private route: ActivatedRoute,
-              private router: Router
+              private router: Router,
+              private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.getAllBonusComputationSheets();
+    this.fetchUser();
   }
+
+  ngAfterViewInit(): void {
+    this.getFilteredSheets();
+  }
+
 
   getAllBonusComputationSheets(): void {
     this.bonusComputationSheetService.getAllBonusComputationSheets()
@@ -56,5 +67,24 @@ export class BonusComputationSheetPageComponent implements OnInit {
       this.sheet = row;
       const id = this.sheet._id;
       await this.router.navigate([`bonusComputationSheetDetail/${id}`]);
+  }
+
+  /**
+   * fetches information about logged-in user
+   */
+  fetchUser(){
+    this.userService.getOwnUser().subscribe(user => {
+      this.user = user
+    });
+  }
+
+  getFilteredSheets() {
+    let arr = [];
+    for(let i in this.BonusSheets) {
+      if(this.BonusSheets[i]['_code'] == this.user.code) {
+        arr.push(this.BonusSheets[i]);
+      }
+    }
+    this.myBonusSheets = arr;
   }
 }

@@ -2,9 +2,10 @@
   <mat-card-header>
     <mat-card-title>
       <h1>Salesmen</h1>
+
     </mat-card-title>
   </mat-card-header>
-  <table mat-table [dataSource]="Salesmen" class="mat-elevation-z8">
+  <table *ngIf="user.role != 'salesman' " mat-table [dataSource]="Salesmen" class="mat-elevation-z8">
 
     <!--Employee ID Column-->
     <ng-container matColumnDef="Employee ID">
@@ -39,5 +40,43 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <div *ngIf="user.role == 'salesman'">
+  <table mat-table [dataSource]="Salesman" *ngFor="let elem of Salesman" class="mat-elevation-z8">
 
+    <!--Employee ID Column-->
+    <ng-container matColumnDef="Employee ID">
+      <th mat-header-cell *matHeaderCellDef>Employee ID</th>
+      <td mat-cell *matCellDef>{{ elem['_employeeID'] }}</td>
+    </ng-container>
+
+    <!--Code Column-->
+    <ng-container matColumnDef="Code">
+      <th mat-header-cell *matHeaderCellDef>Code</th>
+      <td mat-cell *matCellDef>{{ elem['_code'] }}</td>
+    </ng-container>
+
+    <!--Firstname Column-->
+    <ng-container matColumnDef="Firstname">
+      <th mat-header-cell *matHeaderCellDef>Firstname</th>
+      <td mat-cell *matCellDef>{{ elem['_firstname'] }}</td>
+    </ng-container>
+
+    <!--Lastname Column-->
+    <ng-container matColumnDef="Lastname">
+      <th mat-header-cell *matHeaderCellDef>Lastname</th>
+      <td mat-cell *matCellDef>{{ elem['_lastname'] }}</td>
+    </ng-container>
+
+    <!--Department Column-->
+    <ng-container matColumnDef="Department">
+      <th mat-header-cell *matHeaderCellDef>Department</th>
+      <td mat-cell *matCellDef>{{ elem['_department'] }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  </div>
 </mat-card>
+
+

@@ -22,12 +22,7 @@ export class MenuBarComponent implements OnInit {
     {title: 'Sales', routerLink: 'sales'}
   ];
 
-  buttonss = [
-    {title: 'EventLogs', routerLink: 'eventLogs'},
-    {title: 'Accounts', routerLink: 'accounts'}
-  ]
-
-  button1 = {title: 'Profile', routerLink: 'profile'};
+  button = {title: 'EventLogs', routerLink: 'eventLogs'};
 
   /**
    * The following parameters specify objects, which will be provided by dependency injection
@@ -57,4 +52,5 @@ export class MenuBarComponent implements OnInit {
       this.user = user
     });
   }
+
 }

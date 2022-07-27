@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SalesmanService } from "../../services/salesman.service";
 import { Salesman } from "../../models/Salesman";
+import {User} from "../../models/User";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-salesmen-page',
@@ -8,8 +10,9 @@ import { Salesman } from "../../models/Salesman";
   styleUrls: ['./salesmen-page.component.css']
 })
 export class SalesmenPageComponent implements OnInit {
+  user:User;
   Salesmen: Salesman[] = [];
-  Salesman: Salesman;
+  Salesman: Salesman[] = [];
   displayedColumns: string[] = [
     'Employee ID',
     'Code',
@@ -18,10 +21,15 @@ export class SalesmenPageComponent implements OnInit {
     'Department'
   ];
 
-  constructor(private salesmanService: SalesmanService) { }
+  constructor(private salesmanService: SalesmanService, private userService:UserService) { }
 
   ngOnInit(): void {
     this.getAllSalesman();
+    this.fetchUser();
+  }
+
+  ngAfterViewInit(): void {
+    this.getSalesman(this.user.code);
   }
 
   getAllSalesman(): void {
@@ -31,7 +39,7 @@ export class SalesmenPageComponent implements OnInit {
 
   getSalesman(id: string): void {
     this.salesmanService.getSalesman(id)
-      .subscribe(salesman => this.Salesman = salesman);
+      .subscribe(salesman => this.Salesman.push(salesman));
   }
 
   createSalesman(salesman: Salesman): void {
@@ -49,6 +57,15 @@ export class SalesmenPageComponent implements OnInit {
     this.Salesmen.filter(salesman => salesman._employeeID !== id);
     this.salesmanService.deleteSalesman(id)
       .subscribe();
+  }
+
+  /**
+   * fetches information about logged-in user
+   */
+  fetchUser(){
+    this.userService.getOwnUser().subscribe(user => {
+      this.user = user
+    });
   }
 }
 

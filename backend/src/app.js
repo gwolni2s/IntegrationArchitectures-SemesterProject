@@ -43,7 +43,9 @@ app.use(session({
     }
 }));
 
-const apiRouter = require('./routes/api-routes'); //get api-router from routes/api
+const apiRouter = require('./routes/api-routes');
+const userService = require("./services/user-service");
+const User = require("./models/User"); //get api-router from routes/api
 app.use('/api', apiRouter); //mount api-router at path "/api"
 // !!!! attention all middlewares, mounted after the router wont be called for any requests
 
@@ -69,10 +71,14 @@ async function initDb(db){
         const userService = require('./services/user-service');
         const User = require("./models/User");
 
-        const adminPassword = crypto.randomBytes(8).toString('base64');
-        await userService.add(db, new User('admin', '', 'admin', '', adminPassword, true));
+        // const adminPassword = crypto.randomBytes(8).toString('base64');
+        await userService.add(db, new User('admin', '', 'admin', '', 'admin', true, 'admin', '60999'));
+        await userService.add(db, new User('ceo', 'Micheal', 'Moore', '', 'ceo', false, 'ceo', '98777'));
+        await userService.add(db, new User('hr', 'Chantal', 'Banks', '', 'hr', false, 'hr', '90133'));
+        await userService.add(db, new User('john', 'John', 'Smith', '', 'john', false, 'salesman', '90123'));
+        await userService.add(db, new User('mary-ann', 'Mary-ann', 'Sallinger', '', 'mary-ann', false, 'salesman', '90124'));
 
-        console.log('created admin user with password: '+adminPassword);
+        // console.log('created admin user with password: '+adminPassword);
     }
 };
 
