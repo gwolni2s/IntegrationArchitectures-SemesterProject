@@ -68,12 +68,15 @@ class bonusComputationSheet {
             this.calculateBonusBonusComputationSheet();
         }
     }
-    setCode(code) {
-        this._code = code;
-    }
-
     setConfirmed(value) {
         this._confirmed = value;
+    }
+
+    getConfirmed() {
+        return this._confirmed;
+    }
+    setCode(code) {
+        this._code = code;
     }
 
     getSignatureCEO() {

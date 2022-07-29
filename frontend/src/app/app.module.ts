@@ -25,6 +25,7 @@ import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from "@angular/cdk/table";
 import { BonusSheetDetailPageComponent } from './pages/bonus-sheet-detail-page/bonus-sheet-detail-page.component';
 import {MatTabsModule} from "@angular/material/tabs";
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {MatTabsModule} from "@angular/material/tabs";
     ProfilePageComponent,
     EventLogsPageComponent,
     AccountsPageComponent,
-    BonusSheetDetailPageComponent
+    BonusSheetDetailPageComponent,
+    WelcomePageComponent
   ],
   imports: [
     BrowserModule,

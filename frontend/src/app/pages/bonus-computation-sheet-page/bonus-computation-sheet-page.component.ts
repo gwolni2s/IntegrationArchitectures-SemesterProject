@@ -37,7 +37,7 @@ export class BonusComputationSheetPageComponent implements OnInit {
     this.fetchUser();
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.getFilteredSheets();
   }
 
@@ -81,7 +81,7 @@ export class BonusComputationSheetPageComponent implements OnInit {
   getFilteredSheets() {
     let arr = [];
     for(let i in this.BonusSheets) {
-      if(this.BonusSheets[i]['_code'] == this.user.code) {
+      if(this.BonusSheets[i]['_code'] == this.user.code && this.BonusSheets[i]['_signatureCEO'] == true && this.BonusSheets[i]['_signatureHR'] == true) {
         arr.push(this.BonusSheets[i]);
       }
     }

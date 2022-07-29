@@ -10,6 +10,7 @@ import {ProfilePageComponent} from "./pages/profile-page/profile-page.component"
 import {AccountsPageComponent} from "./pages/accounts-page/accounts-page.component";
 import {EventLogsPageComponent} from "./pages/event-logs-page/event-logs-page.component";
 import { BonusSheetDetailPageComponent } from "./pages/bonus-sheet-detail-page/bonus-sheet-detail-page.component";
+import {WelcomePageComponent} from "./pages/welcome-page/welcome-page.component";
 
 /*
   This array holds the relation of paths and components which angular router should resolve.
@@ -22,7 +23,7 @@ import { BonusSheetDetailPageComponent } from "./pages/bonus-sheet-detail-page/b
  */
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
-  {path: '', component: SalesmenPageComponent, canActivate: [AuthGuardService]},
+  {path: '', component: WelcomePageComponent, canActivate: [AuthGuardService]},
   {path: 'salesmen', component: SalesmenPageComponent, canActivate: [AuthGuardService]},
   {path: 'bonusComputationSheets', component: BonusComputationSheetPageComponent, canActivate: [AuthGuardService]},
   {path: 'bonusComputationSheetDetail/:id', component: BonusSheetDetailPageComponent, canActivate: [AuthGuardService]},

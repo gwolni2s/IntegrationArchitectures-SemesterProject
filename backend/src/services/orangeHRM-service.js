@@ -28,6 +28,7 @@ exports.getEmployees = async (req, res) => {
             }
     );
     //res.send(exports.filterAllSalesmen(result.data.data));
+    console.log(exports.filterAllSalesmen(result.data.data));
     return exports.filterAllSalesmen(result.data.data);
 }
 exports.getEmployee = async (req, res) => {
@@ -57,8 +58,9 @@ exports.getBonusSalary = async (req, res) => {
 }
 exports.postBonusSalary = async (req, res) => {
     const id = req.params['id'];
-    const year = req.query['year'];
-    const value = req.query['value'];
+    const year = req.body['year'];
+    const value = req.body['value'];
+    console.log("ID: " + id + "Year: " + year + " Value: " + value);
     const accessToken = await exports.getAccessToken();
     let formData = new FormData();
     formData.append('year', year);

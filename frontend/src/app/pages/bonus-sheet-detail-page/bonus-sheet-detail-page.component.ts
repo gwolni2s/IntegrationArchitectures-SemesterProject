@@ -5,6 +5,10 @@ import { BonusComputationSheetService } from "../../services/bonus-computation-s
 import { Salesman } from "../../models/Salesman";
 import { SalesmanService } from "../../services/salesman.service";
 import {SocialPerformance} from "../../models/SocialPerformance";
+import {User} from "../../models/User";
+import {UserService} from "../../services/user.service";
+import { OrangeHRMService } from "../../services/orange-hrm.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-bonus-sheet-detail-page',
@@ -12,6 +16,8 @@ import {SocialPerformance} from "../../models/SocialPerformance";
   styleUrls: ['./bonus-sheet-detail-page.component.css']
 })
 export class BonusSheetDetailPageComponent implements OnInit {
+
+  user: User;
 
   remarkIsEdit: boolean[] = [false];
   remarkValue: string[] = [];
@@ -34,6 +40,10 @@ export class BonusSheetDetailPageComponent implements OnInit {
     "Button"
   ];
 
+  remarkColumn: string[] = [
+    "Remark"
+  ];
+
   criteria: any[] = [
     "Leadership Competence",
     "Openness To Employee",
@@ -54,7 +64,8 @@ export class BonusSheetDetailPageComponent implements OnInit {
   displayedColumnsPerformance: string[] = [
     "Criteria",
     "Target Value",
-    "Actual Value"
+    "Actual Value",
+    "Bonus"
   ];
 
   displayedColumnsBonus: string[] = [
@@ -64,7 +75,9 @@ export class BonusSheetDetailPageComponent implements OnInit {
     "SignatureCEO",
     "SignatureHR",
     "Confirmed",
+    "Save",
     "Bonus"
+
   ];
 
   displayedColumnsSalesman: string[] = [
@@ -90,11 +103,14 @@ export class BonusSheetDetailPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private bonusSheetService: BonusComputationSheetService,
-    private salesmanService: SalesmanService
+    private salesmanService: SalesmanService,
+    private userService: UserService,
+    private orangeService: OrangeHRMService
   ) { }
 
   ngOnInit(): void {
     this.getBonusSheet();
+    this.fetchUser();
   }
 
   getBonusSheet(): void {
@@ -194,25 +210,56 @@ export class BonusSheetDetailPageComponent implements OnInit {
     this.remarkValue[index] = value;
   }
   setSignatureCEO(value): void {
-    let sig = {_signatureCEO: value};
-    console.log(sig);
-    this.bonusSheetService.updateBonusComputationSheet(this.id, sig)
-      .subscribe();
-    window.location.reload();
+    if(this.user.role == 'ceo') {
+      let sig = {_signatureCEO: value};
+      console.log(sig);
+      this.bonusSheetService.updateBonusComputationSheet(this.id, sig)
+        .subscribe();
+      window.location.reload();
+    }
   }
   setSignatureHR(value): void {
-    let sig = {_signatureHR: value};
-    console.log(sig);
-    this.bonusSheetService.updateBonusComputationSheet(this.id, sig)
-      .subscribe();
-    window.location.reload();
+    if(this.user.role == 'hr') {
+      let sig = {_signatureHR: value};
+      console.log(sig);
+      this.bonusSheetService.updateBonusComputationSheet(this.id, sig)
+        .subscribe();
+      window.location.reload();
+    }
   }
-  setConfirmed(value): void {
-    let sig = {_confirmed: value};
-    console.log(sig);
-    this.bonusSheetService.updateBonusComputationSheet(this.id, sig)
-      .subscribe();
-    window.location.reload();
+
+  setConfirm(value): void {
+    if(
+      this.user.role == 'salesman' &&
+      this.bonusSheet[0]['_signatureHR'] == true &&
+      this.bonusSheet[0]['_signatureCEO'] == true) {
+      let sig = {_confirmed: value};
+      this.bonusSheetService.updateBonusComputationSheet(this.id, sig)
+        .subscribe();
+      window.location.reload();
+    }
+  }
+
+  postBonus(): void {
+    if(this.user.role == 'hr' &&
+      this.bonusSheet[0]['_signatureHR'] == true &&
+      this.bonusSheet[0]['_signatureCEO'] == true &&
+      this.bonusSheet[0]['_confirmed']) {
+      alert("The Total Bonus of: " + this.bonusSheet[0]['_bonus'] +
+        "$ for the Salesman: " + this.salesman[0]['_firstname'] + " " + this.salesman[0]['_lastname'] + " is saved in OrangeHRM")
+      this.orangeService.postBonusSalary(this.salesman[0]['_employeeID'], this.bonusSheet[0]['_yearOfPerformance'], this.bonusSheet[0]['_bonus'].toString())
+        .subscribe();
+      window.location.reload();
+    }
+  }
+
+  /**
+   * fetches information about logged-in user
+   */
+  fetchUser(){
+    this.userService.getOwnUser().subscribe(user => {
+      this.user = user
+    });
   }
 }
 

@@ -18,11 +18,11 @@ export class MenuBarComponent implements OnInit {
    */
   buttons = [
     {title: 'Salesmen', routerLink: 'salesmen'},
-    {title: 'BonusComputationSheets', routerLink: 'bonusComputationSheets'},
-    {title: 'Sales', routerLink: 'sales'}
+    {title: 'BonusComputationSheets', routerLink: 'bonusComputationSheets'}
   ];
 
-  button = {title: 'EventLogs', routerLink: 'eventLogs'};
+  button1 = {title: 'Sales', routerLink: 'sales'};
+  button2 = {title: 'EventLogs', routerLink: 'eventLogs'};
 
   /**
    * The following parameters specify objects, which will be provided by dependency injection
