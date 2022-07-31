@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">
   <mat-icon class="app-icon">token</mat-icon>
   <span class="appName">Integration Architectures</span>
+  <button class="menu-button" mat-flat-button color="primary" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="button3.routerLink" *ngIf="user.role === 'ceo' ">{{button3.title}}</button>
   <div *ngIf="user.role !== 'admin' "><button class="menu-button" mat-flat-button color="primary" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="button.routerLink" *ngFor="let button of buttons">{{button.title}}</button></div>
   <button class="menu-button" mat-flat-button color="primary" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="button1.routerLink" *ngIf="user.role === 'hr' || user.role === 'ceo'">{{button1.title}}</button>
   <button class="menu-button" mat-flat-button color="primary" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="button2.routerLink" *ngIf="user.role === 'admin' ">{{button2.title}}</button>

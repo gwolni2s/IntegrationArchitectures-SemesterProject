@@ -11,6 +11,7 @@ import {AccountsPageComponent} from "./pages/accounts-page/accounts-page.compone
 import {EventLogsPageComponent} from "./pages/event-logs-page/event-logs-page.component";
 import { BonusSheetDetailPageComponent } from "./pages/bonus-sheet-detail-page/bonus-sheet-detail-page.component";
 import {WelcomePageComponent} from "./pages/welcome-page/welcome-page.component";
+import {  FetchDataPageComponent } from "./pages/fetch-data-page/fetch-data-page.component";
 
 /*
   This array holds the relation of paths and components which angular router should resolve.
@@ -24,6 +25,7 @@ import {WelcomePageComponent} from "./pages/welcome-page/welcome-page.component"
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
   {path: '', component: WelcomePageComponent, canActivate: [AuthGuardService]},
+  {path: 'fetchData', component: FetchDataPageComponent, canActivate: [AuthGuardService]},
   {path: 'salesmen', component: SalesmenPageComponent, canActivate: [AuthGuardService]},
   {path: 'bonusComputationSheets', component: BonusComputationSheetPageComponent, canActivate: [AuthGuardService]},
   {path: 'bonusComputationSheetDetail/:id', component: BonusSheetDetailPageComponent, canActivate: [AuthGuardService]},

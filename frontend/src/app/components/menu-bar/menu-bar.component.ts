@@ -23,6 +23,7 @@ export class MenuBarComponent implements OnInit {
 
   button1 = {title: 'Sales', routerLink: 'sales'};
   button2 = {title: 'EventLogs', routerLink: 'eventLogs'};
+  button3 = {title: 'Fetch Data', routerLink: 'fetchData'};
 
   /**
    * The following parameters specify objects, which will be provided by dependency injection

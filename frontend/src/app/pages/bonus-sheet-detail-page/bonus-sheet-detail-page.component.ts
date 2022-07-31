@@ -244,10 +244,10 @@ export class BonusSheetDetailPageComponent implements OnInit {
     if(this.user.role == 'hr' &&
       this.bonusSheet[0]['_signatureHR'] == true &&
       this.bonusSheet[0]['_signatureCEO'] == true &&
-      this.bonusSheet[0]['_confirmed']) {
-      alert("The Total Bonus of: " + this.bonusSheet[0]['_bonus'] +
-        "$ for the Salesman: " + this.salesman[0]['_firstname'] + " " + this.salesman[0]['_lastname'] + " is saved in OrangeHRM")
-      this.orangeService.postBonusSalary(this.salesman[0]['_employeeID'], this.bonusSheet[0]['_yearOfPerformance'], this.bonusSheet[0]['_bonus'].toString())
+      this.bonusSheet[0]['_confirmed'] == true) {
+      alert("The Total Bonus of: " + Math.round(this.bonusSheet[0]['_bonus']) +
+        "$ for the Salesman: " + this.salesman[0]['_firstname'] + " " + this.salesman[0]['_lastname'] + " is saved in OrangeHRM");
+      this.orangeService.postBonusSalary(this.salesman[0]['_employeeID'], this.bonusSheet[0]['_yearOfPerformance'], Math.round(this.bonusSheet[0]['_bonus']).toString())
         .subscribe();
       window.location.reload();
     }
